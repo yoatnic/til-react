@@ -6,7 +6,7 @@ import Clock from './Clock';
 import registerServiceWorker from './registerServiceWorker';
 
 ReactDOM.render(
-  <Clock />,
+  <Clock initialCount={1}/>,
   document.getElementById('root')
 );
 
