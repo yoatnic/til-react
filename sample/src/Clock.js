@@ -1,5 +1,5 @@
-import React from 'react';
-import FragmentDate from './FragmentDate';
+import React from "react";
+import FragmentDate from "./FragmentDate";
 
 class Clock extends React.Component {
   constructor(props) {
@@ -7,7 +7,7 @@ class Clock extends React.Component {
     this.state = {
       date: new Date(),
       tickCount: props.initialCount
-    }
+    };
   }
 
   componentDidMount() {
@@ -29,7 +29,7 @@ class Clock extends React.Component {
     return (
       <div>
         <h1>Hello, world!</h1>
-        <FragmentDate date={this.state.date}/>
+        <FragmentDate date={this.state.date} />
         <h2>{this.state.tickCount}</h2>
       </div>
     );

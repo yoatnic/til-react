@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 
 class CustomTextInput extends React.Component {
   constructor(props) {
@@ -18,10 +18,11 @@ class CustomTextInput extends React.Component {
       <div>
         <input
           type="text"
-          ref={(input) => {
+          ref={input => {
             console.log(input);
             this.textInput = input;
-          }} />
+          }}
+        />
         <input
           type="button"
           value="Focus the text input"
@@ -40,10 +41,11 @@ class AutoFocusTextInput extends React.Component {
   render() {
     return (
       <CustomTextInput
-        ref={(input) => {
-          console.log(input)
+        ref={input => {
+          console.log(input);
           this.textInput = input;
-        }} />
+        }}
+      />
     );
   }
 }

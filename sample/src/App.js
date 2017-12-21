@@ -1,9 +1,9 @@
-import React from 'react';
-import Header from './Header'
-import Greet from './Greet'
+import React from "react";
+import Header from "./Header";
+import Greet from "./Greet";
 
 const appStyles = {
-  textAlign: 'center'
+  textAlign: "center"
 };
 
 class App extends React.Component {
@@ -11,7 +11,7 @@ class App extends React.Component {
     return (
       <div style={appStyles}>
         <Header />
-        <Greet message="Hello!"/>
+        <Greet message="Hello!" />
       </div>
     );
   }
