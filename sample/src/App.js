@@ -1,18 +1,14 @@
 import React from "react";
 import Header from "./Header";
-import Greet from "./Greet";
-
-const appStyles = {
-  textAlign: "center"
-};
+import Wannas from "./Wannas";
 
 class App extends React.Component {
   render() {
     return (
-      <div style={appStyles}>
+      <React.Fragment>
         <Header />
-        <Greet message="Hello!" />
-      </div>
+        <Wannas />
+      </React.Fragment>
     );
   }
 }
