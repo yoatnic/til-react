@@ -1,6 +1,6 @@
 import React from "react";
-import Header from "./Header";
-import Wannas from "./Wannas";
+import Header from "./molecules/Header";
+import Wannas from "./molecules/Wannas";
 
 class App extends React.Component {
   render() {
