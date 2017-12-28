@@ -1,6 +1,6 @@
 import React from "react";
 
-const Wanna = function() {
+const Wannatag = function() {
   return (
     <div>
       <div>date</div>
@@ -12,4 +12,4 @@ const Wanna = function() {
   );
 };
 
-export default Wanna;
+export default Wannatag;

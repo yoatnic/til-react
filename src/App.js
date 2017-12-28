@@ -1,13 +1,13 @@
 import React from "react";
 import Header from "./molecules/Header";
-import Wannas from "./molecules/Wannas";
+import Wannatags from "./molecules/Wannatags";
 
 class App extends React.Component {
   render() {
     return (
       <React.Fragment>
         <Header />
-        <Wannas />
+        <Wannatags />
       </React.Fragment>
     );
   }
