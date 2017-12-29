@@ -21,8 +21,7 @@ class Wannatags extends React.Component {
     const wannatags = this.state.wannatags.map(wannatag => (
       <Wanna {...wannatag} />
     ));
-    // return <React.Fragment>{...wannatags}</React.Fragment>;
-    return <div />;
+    return <React.Fragment>{wannatags}</React.Fragment>;
   }
 }
 
