@@ -17,7 +17,7 @@ module.exports = {
       ? ["./src/index.js"]
       : [
           "react-hot-loader/patch",
-          "webpack-dev-server/client?http://localhost:3355",
+          "webpack-dev-server/client?http://localhost:8080",
           "webpack/hot/only-dev-server",
           "./src/index.js"
         ],
@@ -29,7 +29,7 @@ module.exports = {
   devServer: {
     contentBase: "public/",
     historyApiFallback: true,
-    port: 3355,
+    port: 8080,
     hot: true
   },
   plugins:
