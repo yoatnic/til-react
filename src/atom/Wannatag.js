@@ -1,13 +1,23 @@
 import React from "react";
 
-const Wannatag = function() {
+const style = {
+  boxShadow: "0 0 1px black",
+  padding: "5px"
+};
+
+const Wannatag = function(props) {
+  const d = new Date(props.postDate);
+  console.log(d);
+  const dateStr =
+    `${d.getFullYear()}/${d.getMonth()}/${d.getDay()} ` +
+    `${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}`;
   return (
-    <div>
-      <div>date</div>
-      <div>username</div>
-      <div>title</div>
-      <div>message</div>
-      <button>delete</button>
+    <div style={style}>
+      <div>{dateStr}</div>
+      <div>{props.username}</div>
+      <div>{props.title}</div>
+      <div>{props.body}</div>
+      {props.isOwner ? <button>delete</button> : null}
     </div>
   );
 };
