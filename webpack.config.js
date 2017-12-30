@@ -30,7 +30,13 @@ module.exports = {
     contentBase: "public/",
     historyApiFallback: true,
     port: 8080,
-    hot: true
+    hot: true,
+    before(app) {
+      const payload = require("./testpayload");
+      app.get("/wannatags", function(req, res) {
+        res.json(payload);
+      });
+    }
   },
   plugins:
     process.env.NODE_ENV === "production"
