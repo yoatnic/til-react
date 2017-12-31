@@ -9,16 +9,13 @@ class Wannatags extends React.Component {
     };
   }
 
-  componentDidMount() {
-    const f = async () => {
-      try {
-        const r = await fetch("/wannatags");
-        this.setState({ wannatags: await r.json() });
-      } catch (e) {
-        console.log(e);
-      }
-    };
-    return f();
+  async componentDidMount() {
+    try {
+      const r = await fetch("/wannatags");
+      this.setState({ wannatags: await r.json() });
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   render() {
