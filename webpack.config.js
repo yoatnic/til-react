@@ -14,8 +14,9 @@ const BASE_PLUGINS = [
 module.exports = {
   entry:
     process.env.NODE_ENV === "production"
-      ? ["./src/index.js"]
+      ? ["babel-polyfill", "./src/index.js"]
       : [
+          "babel-polyfill",
           "react-hot-loader/patch",
           "webpack-dev-server/client?http://localhost:8080",
           "webpack/hot/only-dev-server",

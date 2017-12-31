@@ -7,7 +7,6 @@ const style = {
 
 const Wannatag = function(props) {
   const d = new Date(props.postDate);
-  console.log(d);
   const dateStr =
     `${d.getFullYear()}/${d.getMonth()}/${d.getDay()} ` +
     `${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}`;
