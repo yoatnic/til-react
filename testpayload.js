@@ -10,7 +10,7 @@ const payload = [
   {
     wannatagId: "yyyy",
     title: "title2",
-    body: "hugahugahuga",
+    body: "huga".repeat(30),
     username: "bar",
     postDate: new Date().getTime(),
     isOwner: false

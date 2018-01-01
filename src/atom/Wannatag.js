@@ -1,8 +1,14 @@
 import React from "react";
 
+const width = "250px";
 const style = {
   boxShadow: "0 0 1px black",
-  padding: "5px"
+  flexBasis: width,
+  maxWdith: width,
+  width, // https://qiita.com/taka_mura3/items/2e9719165eab1ea6bfbe
+  alignItems: "flex-start",
+  wordWrap: "break-word",
+  margin: "10px"
 };
 
 const Wannatag = function(props) {
@@ -15,7 +21,7 @@ const Wannatag = function(props) {
       <div>{dateStr}</div>
       <div>{props.username}</div>
       <div>{props.title}</div>
-      <div>{props.body}</div>
+      <p>{props.body}</p>
       {props.isOwner ? <button>delete</button> : null}
     </div>
   );

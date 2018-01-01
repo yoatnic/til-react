@@ -1,6 +1,12 @@
 import React from "react";
 import Wannatag from "../atom/Wannatag";
 
+const style = {
+  display: "flex",
+  flexWrap: "wrap",
+  width: "100%"
+};
+
 class Wannatags extends React.Component {
   constructor() {
     super();
@@ -22,7 +28,7 @@ class Wannatags extends React.Component {
     const wannatags = this.state.wannatags.map(wannatag => {
       return <Wannatag key={wannatag.wannatagId} {...wannatag} />;
     });
-    return <React.Fragment>{wannatags}</React.Fragment>;
+    return <div style={style}>{wannatags}</div>;
   }
 }
 
