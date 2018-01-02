@@ -1,5 +1,5 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import App from "./App";
+import AppRouter from "./AppRouter";
 
-ReactDOM.render(<App />, document.getElementsByClassName("main")[0]);
+ReactDOM.render(<AppRouter />, document.getElementsByClassName("main")[0]);
