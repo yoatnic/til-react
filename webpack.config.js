@@ -10,6 +10,7 @@ const BASE_PLUGINS = [
     "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV)
   })
 ];
+const payload = require("./testpayload");
 
 module.exports = {
   entry:
@@ -33,9 +34,15 @@ module.exports = {
     port: 8080,
     hot: true,
     before(app) {
-      const payload = require("./testpayload");
-      app.get("/wannatags", function(req, res) {
-        res.json(payload);
+      app.get("/wannatags/:date", function(req, res) {
+        const startDate = parseInt(req.params.date);
+        if (startDate === 0) {
+          res.json(payload.splice(0, 20));
+        } else {
+          const i = payload.find(p => p.postDate === startDate);
+          if (i < 0) res.json([]);
+          else res.json(payload.splice(i + 1, 20));
+        }
       });
     }
   },
