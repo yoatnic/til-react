@@ -14,7 +14,7 @@ const dateSeed = new Date().getTime();
 
 for (let i = 0; i < 100; i++) {
   payload.push({
-    wannatagId: randomStr(),
+    wannatagId: i.toString(),
     title: randomStr(),
     body: randomStr(10, 200),
     username: userTable[i % userTable.length],
@@ -22,5 +22,5 @@ for (let i = 0; i < 100; i++) {
     isOwner: i % userTable.length === 0
   });
 }
-console.log(payload);
+
 module.exports = payload;
