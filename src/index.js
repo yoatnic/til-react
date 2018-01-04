@@ -1,5 +1,13 @@
+import "intersection-observer";
 import React from "react";
 import ReactDOM from "react-dom";
-import AppRouter from "./AppRouter";
+import { Provider } from "react-redux";
+import AppContainer from "./containers/AppContainer";
+import { wannatagStore } from "./stores/wannatag";
 
-ReactDOM.render(<AppRouter />, document.getElementsByClassName("main")[0]);
+ReactDOM.render(
+  <Provider store={wannatagStore}>
+    <AppContainer />
+  </Provider>,
+  document.getElementsByClassName("main")[0]
+);

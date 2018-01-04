@@ -7,7 +7,7 @@ class App extends React.Component {
     return (
       <React.Fragment>
         <Header />
-        <Wannatags />
+        <Wannatags {...this.props} />
       </React.Fragment>
     );
   }
