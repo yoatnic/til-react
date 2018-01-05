@@ -13,25 +13,28 @@ class Wannatags extends React.Component {
     this.state = {
       wannatags: []
     };
-    this.fetching = false;
   }
 
-  async getWannatags() {
-    this.fetching = true;
+  async getWannatags(shownItemDate) {
     try {
-      const r = await fetch(`/wannatags/${this.props.shownItemDate}`);
+      const r = await fetch(`/wannatags/${shownItemDate}`);
       this.setState({
         wannatags: this.state.wannatags.concat(await r.json())
       });
     } catch (e) {
       console.log(e);
-    } finally {
-      this.fetching = false;
     }
   }
 
+  componentDidMount() {
+    this.getWannatags(this.props.shownItemDate);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.getWannatags(nextProps.shownItemDate);
+  }
+
   render() {
-    if (!this.fetching) this.getWannatags();
     const wannatags = this.state.wannatags.map((wannatag, i) => {
       let props = wannatag;
       if (i === this.state.wannatags.length - 1) {
@@ -39,7 +42,6 @@ class Wannatags extends React.Component {
           onEnterWindow: this.props.onEnterWindow
         });
       }
-      console.log(props.wannatagId);
       return <Wannatag key={props.wannatagId} {...props} />;
     });
     return <div style={style}>{wannatags}</div>;
