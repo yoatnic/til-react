@@ -10,7 +10,6 @@ const BASE_PLUGINS = [
     "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV)
   })
 ];
-const payload = require("./testpayload");
 
 module.exports = {
   entry:
@@ -34,27 +33,7 @@ module.exports = {
     port: 8080,
     hot: true,
     before(app) {
-      app.get("/wannatags/:date", function(req, res) {
-        const startDate = parseInt(req.params.date);
-        if (startDate === 0) {
-          res.json(payload.slice(0, 20));
-        } else {
-          const i = payload.findIndex(p => p.postDate === startDate);
-          if (i < 0) {
-            console.log("find failed");
-            res.json([]);
-          } else {
-            const s = i + 1;
-            const j = payload.slice(s, s + 20);
-            console.log(
-              `find index: ${i}`,
-              `payload length: ${j.length}`,
-              `db items: ${payload.length}`
-            );
-            res.json(j);
-          }
-        }
-      });
+      require("./serverapi/Wannatags")(app);
     }
   },
   plugins:
