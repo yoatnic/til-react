@@ -18,7 +18,7 @@ for (let i = 0; i < 100; i++) {
     title: randomStr(),
     body: randomStr(10, 200),
     username: userTable[i % userTable.length],
-    postDate: dateSeed + i,
+    postDate: dateSeed - i,
     isOwner: i % userTable.length === 0
   });
 }
