@@ -1,7 +1,14 @@
-const payload = require("./TestWannatagsPayload");
+const { intitial, newPosts } = require("./TestWannatagsPayload");
+const payload = intitial;
 
+let counter = 0;
 module.exports = function(app) {
   app.get("/wannatags/:date", function(req, res) {
+    console.log(counter);
+    if (++counter === 5) {
+      payload.splice(0, 0, ...newPosts);
+      console.log("update payload", payload);
+    }
     const startDate = parseInt(req.params.date);
     if (startDate === 0) {
       res.json(payload.slice(0, 20));

@@ -8,12 +8,12 @@ function randomStr(s = 10, e = 10) {
   return str.join("");
 }
 
-const payload = [];
+const intitial = [];
 const userTable = ["foo", "bar", "buz", "qux", "hoge"];
 const dateSeed = new Date().getTime();
 
 for (let i = 0; i < 100; i++) {
-  payload.push({
+  intitial.push({
     wannatagId: i.toString(),
     title: randomStr(),
     body: randomStr(10, 200),
@@ -23,4 +23,19 @@ for (let i = 0; i < 100; i++) {
   });
 }
 
-module.exports = payload;
+const newPosts = [];
+for (let i = 0; i < 13; i++) {
+  newPosts.push({
+    wannatagId: (i + 1000).toString(),
+    title: randomStr(),
+    body: randomStr(10, 200),
+    username: userTable[i % (userTable.length - 1) + 1],
+    postDate: dateSeed + 1000000 - i * 1000,
+    isOwner: false
+  });
+}
+
+module.exports = {
+  intitial,
+  newPosts
+};

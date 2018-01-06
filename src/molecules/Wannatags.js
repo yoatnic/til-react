@@ -15,6 +15,26 @@ class Wannatags extends React.Component {
     };
   }
 
+  polling() {
+    setInterval(async () => {
+      const wannatags = await this.getWannatags(0);
+      const current = this.state.wannatags.slice(0, 20);
+      const diff = wannatags.filter(w => {
+        const i = current.findIndex(wt => {
+          return w.wannatagId === wt.wannatagId;
+        });
+        return i < 0;
+      });
+      if (diff.length > 0) {
+        this.setState(prevState => {
+          return {
+            wannatags: diff.concat(prevState.wannatags)
+          };
+        });
+      }
+    }, 5000);
+  }
+
   async getWannatags(shownItemDate) {
     const r = await fetch(`/wannatags/${shownItemDate}`);
     return await r.json();
@@ -22,10 +42,11 @@ class Wannatags extends React.Component {
 
   async updateWannatags(shownItemDate) {
     try {
-      this.setState({
-        wannatags: this.state.wannatags.concat(
-          await this.getWannatags(shownItemDate)
-        )
+      const wannatags = await this.getWannatags(shownItemDate);
+      this.setState(prevState => {
+        return {
+          wannatags: prevState.wannatags.concat(wannatags)
+        };
       });
     } catch (e) {
       console.log(e);
@@ -34,6 +55,7 @@ class Wannatags extends React.Component {
 
   componentDidMount() {
     this.updateWannatags(this.props.shownItemDate);
+    this.polling();
   }
 
   componentWillReceiveProps(nextProps) {
