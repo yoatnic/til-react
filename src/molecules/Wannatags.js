@@ -16,10 +16,16 @@ class Wannatags extends React.Component {
   }
 
   async getWannatags(shownItemDate) {
+    const r = await fetch(`/wannatags/${shownItemDate}`);
+    return await r.json();
+  }
+
+  async updateWannatags(shownItemDate) {
     try {
-      const r = await fetch(`/wannatags/${shownItemDate}`);
       this.setState({
-        wannatags: this.state.wannatags.concat(await r.json())
+        wannatags: this.state.wannatags.concat(
+          await this.getWannatags(shownItemDate)
+        )
       });
     } catch (e) {
       console.log(e);
@@ -27,11 +33,11 @@ class Wannatags extends React.Component {
   }
 
   componentDidMount() {
-    this.getWannatags(this.props.shownItemDate);
+    this.updateWannatags(this.props.shownItemDate);
   }
 
   componentWillReceiveProps(nextProps) {
-    this.getWannatags(nextProps.shownItemDate);
+    this.updateWannatags(nextProps.shownItemDate);
   }
 
   render() {
