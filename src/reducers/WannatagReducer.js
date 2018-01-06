@@ -1,4 +1,4 @@
-import { GET_NEXT_WANNATAGS } from "../actions/wannatag";
+import { GET_NEXT_WANNATAGS } from "../actions/WannatagAction";
 
 const initinalNextWannatag = {
   shownItemDate: 0

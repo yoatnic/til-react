@@ -1,5 +1,5 @@
 import AppRouter from "../AppRouter";
-import { getNextWannatags } from "../actions/wannatag";
+import { getNextWannatags } from "../actions/WannatagAction";
 import { connect } from "react-redux";
 
 function mapStateToProps(state) {
