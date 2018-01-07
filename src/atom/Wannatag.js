@@ -29,7 +29,7 @@ class Wannatag extends React.Component {
   render() {
     const d = new Date(this.props.postDate);
     const dateStr =
-      `${d.getFullYear()}/${d.getMonth() + 1}/${d.getDay()} ` +
+      `${d.getFullYear()}/${d.getMonth() + 1}/${d.getDate()} ` +
       `${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}`;
     const elem = (
       <div style={style}>
