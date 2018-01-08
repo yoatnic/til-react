@@ -17,7 +17,7 @@ export default function(WrapedComponent) {
         const wannatagsFeed = await this.getWannatagsFeed(
           this.props.firstItemDate
         );
-        this.setState({ wannatagsFeed });
+        if (wannatagsFeed.length > 0) this.setState({ wannatagsFeed });
       }, 5000);
     }
 
@@ -50,7 +50,9 @@ export default function(WrapedComponent) {
     }
 
     componentWillReceiveProps(nextProps) {
-      this.updateWannatags(nextProps.shownItemDate);
+      if (nextProps.shownItemDate !== this.props.shownItemDate) {
+        this.updateWannatags(nextProps.shownItemDate);
+      }
     }
 
     onShowButtonClick() {

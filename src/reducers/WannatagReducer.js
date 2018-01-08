@@ -11,9 +11,9 @@ const initinalNextWannatag = {
 export function wannatagReducers(state = initinalNextWannatag, action) {
   switch (action.type) {
     case GET_NEXT_WANNATAGS:
-      return Object.assign({}, { shownItemDate: action.shownItemDate });
+      return Object.assign({}, state, { shownItemDate: action.shownItemDate });
     case UPDATE_FIRST_WANNATAG:
-      return Object.assign({}, { firstItemDate: action.firstItemDate });
+      return Object.assign({}, state, { firstItemDate: action.firstItemDate });
     default:
       return state;
   }
