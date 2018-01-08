@@ -8,19 +8,18 @@ function randomStr(s = 10, e = 10) {
   return str.join("");
 }
 
-const pyaload = [];
-const userTable = ["foo", "bar", "buz", "qux", "hoge"];
+const payload = [];
+const userTable = ["bar", "buz", "qux", "hoge"];
 const dateSeed = new Date().getTime();
-
-for (let i = 0; i < 100; i++) {
-  pyaload.push({
-    wannatagId: i.toString(),
+for (let i = 0; i < 13; i++) {
+  payload.push({
+    wannatagId: (i + 1000).toString(),
     title: randomStr(),
     body: randomStr(10, 200),
-    username: userTable[i % userTable.length],
-    postDate: dateSeed - i,
-    isOwner: i % userTable.length === 0
+    username: userTable[i % (userTable.length - 1) + 1],
+    postDate: dateSeed + 1000000 - i * 1000,
+    isOwner: false
   });
 }
 
-module.exports = pyaload;
+module.exports = payload;

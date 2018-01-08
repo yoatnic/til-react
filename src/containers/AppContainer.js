@@ -1,10 +1,14 @@
 import AppRouter from "../AppRouter";
-import { getNextWannatags } from "../actions/WannatagAction";
+import {
+  getNextWannatags,
+  updateFirstWannatag
+} from "../actions/WannatagAction";
 import { connect } from "react-redux";
 
 function mapStateToProps(state) {
   return {
-    shownItemDate: state.shownItemDate
+    shownItemDate: state.shownItemDate,
+    firstItemDate: state.firstItemDate
   };
 }
 
@@ -12,6 +16,9 @@ function mapDispatchToProps(dispatch) {
   return {
     onEnterWindow(value) {
       dispatch(getNextWannatags(value));
+    },
+    onUpdateFirstDate(value) {
+      dispatch(updateFirstWannatag(value));
     }
   };
 }

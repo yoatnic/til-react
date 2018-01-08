@@ -20,6 +20,12 @@ class Wannatag extends React.Component {
     };
   }
 
+  componentDidMount() {
+    if (this.props.onUpdateFirstDate) {
+      this.props.onUpdateFirstDate(this.props.postDate);
+    }
+  }
+
   onEnter(inView) {
     if (!inView) return;
     this.props.onEnterWindow(this.props.postDate);

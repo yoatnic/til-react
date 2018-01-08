@@ -5,28 +5,25 @@ export default function(WrapedComponent) {
     constructor() {
       super();
       this.state = {
-        wannatags: []
+        wannatags: [],
+        wannatagsFeed: []
       };
+      this.wannatagNewPosts = [];
+      this.onShowButtonClick = this.onShowButtonClick.bind(this);
     }
 
     polling() {
       setInterval(async () => {
-        const wannatags = await this.getWannatags(0);
-        const current = this.state.wannatags.slice(0, 20);
-        const diff = wannatags.filter(w => {
-          const i = current.findIndex(wt => {
-            return w.wannatagId === wt.wannatagId;
-          });
-          return i < 0;
-        });
-        if (diff.length > 0) {
-          this.setState(prevState => {
-            return {
-              wannatags: diff.concat(prevState.wannatags)
-            };
-          });
-        }
+        const wannatagsFeed = await this.getWannatagsFeed(
+          this.props.firstItemDate
+        );
+        this.setState({ wannatagsFeed });
       }, 5000);
+    }
+
+    async getWannatagsFeed(firstItemDate) {
+      const r = await fetch(`/wannatagsFeed/${firstItemDate}`);
+      return await r.json();
     }
 
     async getWannatags(shownItemDate) {
@@ -56,11 +53,33 @@ export default function(WrapedComponent) {
       this.updateWannatags(nextProps.shownItemDate);
     }
 
+    onShowButtonClick() {
+      this.setState(prevState => {
+        return {
+          wannatags: prevState.wannatagsFeed.concat(prevState.wannatags),
+          wannatagsFeed: []
+        };
+      });
+    }
+
     render() {
       const props = {
-        onEnterWindow: this.props.onEnterWindow
+        onEnterWindow: this.props.onEnterWindow,
+        onUpdateFirstDate: this.props.onUpdateFirstDate,
+        wannatags: this.state.wannatags
       };
-      return <WrapedComponent {...this.state} {...props} />;
+      const showNewItems =
+        this.state.wannatagsFeed.length > 0 ? (
+          <button onClick={this.onShowButtonClick}>
+            {this.state.wannatagsFeed.length}件の新着をみる
+          </button>
+        ) : null;
+      return (
+        <div>
+          {showNewItems}
+          <WrapedComponent {...props} />
+        </div>
+      );
     }
   };
 }

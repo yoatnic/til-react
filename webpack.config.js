@@ -34,6 +34,7 @@ module.exports = {
     hot: true,
     before(app) {
       require("./serverapi/Wannatags")(app);
+      require("./serverapi/WannatagsFeed")(app);
     }
   },
   plugins:

@@ -11,6 +11,11 @@ class Wannatags extends React.Component {
   render() {
     const wannatags = this.props.wannatags.map((wannatag, i) => {
       let props = wannatag;
+      if (i === 0) {
+        props = Object.assign({}, wannatag, {
+          onUpdateFirstDate: this.props.onUpdateFirstDate
+        });
+      }
       if (i === this.props.wannatags.length - 1) {
         props = Object.assign({}, wannatag, {
           onEnterWindow: this.props.onEnterWindow
