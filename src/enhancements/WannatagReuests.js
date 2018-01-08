@@ -12,28 +12,23 @@ export default function(WrapedComponent) {
       this.onShowButtonClick = this.onShowButtonClick.bind(this);
     }
 
-    polling() {
+    pollingFeed() {
       setInterval(async () => {
-        const wannatagsFeed = await this.getWannatagsFeed(
-          this.props.firstItemDate
+        const wannatagsFeed = await this.getJson(
+          `/wannatagsFeed/${this.props.firstItemDate}`
         );
         if (wannatagsFeed.length > 0) this.setState({ wannatagsFeed });
       }, 5000);
     }
 
-    async getWannatagsFeed(firstItemDate) {
-      const r = await fetch(`/wannatagsFeed/${firstItemDate}`);
-      return await r.json();
-    }
-
-    async getWannatags(shownItemDate) {
-      const r = await fetch(`/wannatags/${shownItemDate}`);
+    async getJson(url) {
+      const r = await fetch(url);
       return await r.json();
     }
 
     async updateWannatags(shownItemDate) {
       try {
-        const wannatags = await this.getWannatags(shownItemDate);
+        const wannatags = await this.getJson(`/wannatags/${shownItemDate}`);
         this.setState(prevState => {
           return {
             wannatags: prevState.wannatags.concat(wannatags)
@@ -46,7 +41,7 @@ export default function(WrapedComponent) {
 
     componentDidMount() {
       this.updateWannatags(this.props.shownItemDate);
-      this.polling();
+      this.pollingFeed();
     }
 
     componentWillReceiveProps(nextProps) {
