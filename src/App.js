@@ -1,7 +1,7 @@
 import React from "react";
-import Header from "./molecules/Header";
-import WannatagRequestFactory from "./enhancements/WannatagReuests";
-import Wannatags from "./molecules/Wannatags";
+import Header from "./components/molecules/Header";
+import WannatagRequestFactory from "./components/enhancements/WannatagReuests";
+import Wannatags from "./components/molecules/Wannatags";
 
 const WrappedWannatag = WannatagRequestFactory(Wannatags);
 

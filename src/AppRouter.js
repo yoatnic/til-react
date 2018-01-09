@@ -1,7 +1,7 @@
 import React from "react";
 import App from "./App";
 import { BrowserRouter, Route } from "react-router-dom";
-import Login from "./atom/Login";
+import Login from "./components/atom/Login";
 
 class AppRouter extends React.Component {
   render() {
