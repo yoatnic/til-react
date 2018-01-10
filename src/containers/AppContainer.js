@@ -3,12 +3,14 @@ import {
   getNextWannatags,
   updateFirstWannatag
 } from "../actions/WannatagAction";
+import { startWanna } from "../actions/PostAction";
 import { connect } from "react-redux";
 
 function mapStateToProps(state) {
   return {
-    shownItemDate: state.shownItemDate,
-    firstItemDate: state.firstItemDate
+    shownItemDate: state.wannatagReducers.shownItemDate,
+    firstItemDate: state.wannatagReducers.firstItemDate,
+    isStartedWanna: state.postReducers.isStartedWanna
   };
 }
 
@@ -19,6 +21,9 @@ function mapDispatchToProps(dispatch) {
     },
     onUpdateFirstDate(value) {
       dispatch(updateFirstWannatag(value));
+    },
+    onStartWanna(value) {
+      dispatch(startWanna(value));
     }
   };
 }
