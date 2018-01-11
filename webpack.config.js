@@ -33,6 +33,9 @@ module.exports = {
     port: 8080,
     hot: true,
     before(app) {
+      const bodyParser = require("body-parser");
+      app.use(bodyParser());
+
       require("./serverapi/Wannatags")(app);
       require("./serverapi/WannatagsFeed")(app);
     }

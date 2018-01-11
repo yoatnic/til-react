@@ -16,20 +16,20 @@ class Wannatag extends React.Component {
   constructor(props) {
     super();
     this.state = {
-      onEnterWindow: props.onEnterWindow
+      onUpdateLastWannatagDate: props.onUpdateLastWannatagDate
     };
   }
 
   componentDidMount() {
-    if (this.props.onUpdateFirstDate) {
-      this.props.onUpdateFirstDate(this.props.postDate);
+    if (this.props.onUpdateFirstWannatagDate) {
+      this.props.onUpdateFirstWannatagDate(this.props.postDate);
     }
   }
 
   onEnter(inView) {
     if (!inView) return;
-    this.props.onEnterWindow(this.props.postDate);
-    this.setState({ onEnterWindow: false });
+    this.props.onUpdateLastWannatagDate(this.props.postDate);
+    this.setState({ onUpdateLastWannatagDate: false });
   }
 
   render() {
@@ -46,7 +46,7 @@ class Wannatag extends React.Component {
         {this.props.isOwner ? <button>delete</button> : null}
       </div>
     );
-    if (this.state.onEnterWindow) {
+    if (this.state.onUpdateLastWannatagDate) {
       return (
         <Observer onChange={inView => this.onEnter(inView)} triggerOnce={true}>
           {elem}

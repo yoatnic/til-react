@@ -9,17 +9,23 @@ const WrappedWannatag = WannatagRequestFactory(Wannatags);
 class App extends React.Component {
   render() {
     const wannatagProps = {
-      shownItemDate: this.props.shownItemDate,
-      firstItemDate: this.props.firstItemDate
+      lastWannatagDate: this.props.lastWannatagDate,
+      firstWannatagDate: this.props.firstWannatagDate,
+      onUpdateLastWannatagDate: this.props.onUpdateLastWannatagDate,
+      onUpdateFirstWannatagDate: this.props.onUpdateFirstWannatagDate
     };
     const headerProps = {
-      onStartWanna: this.props.onStartWanna
+      onToggleWannaPosting: this.props.onToggleWannaPosting
+    };
+    const formProps = {
+      onToggleWannaPosting: this.props.onToggleWannaPosting,
+      onResetWannatagDate: this.props.onResetWannatagDate
     };
     return (
       <React.Fragment>
         <Header {...headerProps} />
         <WrappedWannatag {...wannatagProps} />
-        {this.props.isStartedWanna ? <WannatagPostForm /> : null}
+        {this.props.isWannaPosting ? <WannatagPostForm {...formProps} /> : null}
       </React.Fragment>
     );
   }

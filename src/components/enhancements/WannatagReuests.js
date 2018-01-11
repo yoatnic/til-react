@@ -15,7 +15,7 @@ export default function(WrapedComponent) {
     pollingFeed() {
       setInterval(async () => {
         const wannatagsFeed = await this.getJson(
-          `/wannatagsFeed/${this.props.firstItemDate}`
+          `/wannatagsFeed/${this.props.firstWannatagDate}`
         );
         if (wannatagsFeed.length > 0) this.setState({ wannatagsFeed });
       }, 5000);
@@ -26,9 +26,9 @@ export default function(WrapedComponent) {
       return await r.json();
     }
 
-    async updateWannatags(shownItemDate) {
+    async updateWannatags(lastWannatagDate) {
       try {
-        const wannatags = await this.getJson(`/wannatags/${shownItemDate}`);
+        const wannatags = await this.getJson(`/wannatags/${lastWannatagDate}`);
         this.setState(prevState => {
           return {
             wannatags: prevState.wannatags.concat(wannatags)
@@ -40,13 +40,20 @@ export default function(WrapedComponent) {
     }
 
     componentDidMount() {
-      this.updateWannatags(this.props.shownItemDate);
+      this.updateWannatags(this.props.lastWannatagDate);
       this.pollingFeed();
     }
 
     componentWillReceiveProps(nextProps) {
-      if (nextProps.shownItemDate !== this.props.shownItemDate) {
-        this.updateWannatags(nextProps.shownItemDate);
+      if (
+        nextProps.firstWannatagDate === 0 &&
+        nextProps.lastWannatagDate === 0
+      ) {
+        this.setState({ wannatags: [], wannatagsFeed: [] });
+      }
+
+      if (nextProps.lastWannatagDate !== this.props.lastWannatagDate) {
+        this.updateWannatags(nextProps.lastWannatagDate);
       }
     }
 
@@ -61,8 +68,8 @@ export default function(WrapedComponent) {
 
     render() {
       const props = {
-        onEnterWindow: this.props.onEnterWindow,
-        onUpdateFirstDate: this.props.onUpdateFirstDate,
+        onUpdateLastWannatagDate: this.props.onUpdateLastWannatagDate,
+        onUpdateFirstWannatagDate: this.props.onUpdateFirstWannatagDate,
         wannatags: this.state.wannatags
       };
       const showNewItems =

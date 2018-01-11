@@ -9,14 +9,7 @@ module.exports = function(app) {
       console.log("[wannatags feed]no feed");
       res.json([]);
     } else {
-      console.log(
-        `[wannatags feed]find wannatags: ${JSON.stringify(
-          wannatags,
-          null,
-          "  "
-        )}`,
-        `length: ${wannatags.length}`
-      );
+      console.log(`[wannatags feed]find length: ${wannatags.length}`);
       res.json(wannatags);
     }
   });

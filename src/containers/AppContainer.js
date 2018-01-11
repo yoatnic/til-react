@@ -1,29 +1,33 @@
 import AppRouter from "../AppRouter";
 import {
-  getNextWannatags,
-  updateFirstWannatag
+  updateLastWannatagDate,
+  updateFirstWannatagDate,
+  resetWannatagDate
 } from "../actions/WannatagAction";
-import { startWanna } from "../actions/PostAction";
+import { updateWannaPosting } from "../actions/PostAction";
 import { connect } from "react-redux";
 
 function mapStateToProps(state) {
   return {
-    shownItemDate: state.wannatagReducers.shownItemDate,
-    firstItemDate: state.wannatagReducers.firstItemDate,
-    isStartedWanna: state.postReducers.isStartedWanna
+    lastWannatagDate: state.wannatagReducers.lastWannatagDate,
+    firstWannatagDate: state.wannatagReducers.firstWannatagDate,
+    isWannaPosting: state.postReducers.isWannaPosting
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    onEnterWindow(value) {
-      dispatch(getNextWannatags(value));
+    onUpdateLastWannatagDate(value) {
+      dispatch(updateLastWannatagDate(value));
     },
-    onUpdateFirstDate(value) {
-      dispatch(updateFirstWannatag(value));
+    onUpdateFirstWannatagDate(value) {
+      dispatch(updateFirstWannatagDate(value));
     },
-    onStartWanna(value) {
-      dispatch(startWanna(value));
+    onResetWannatagDate() {
+      dispatch(resetWannatagDate());
+    },
+    onToggleWannaPosting(value) {
+      dispatch(updateWannaPosting(value));
     }
   };
 }

@@ -1,5 +1,5 @@
-export const WANNA_STARTED = "WANNA_STARTED";
+export const UPDATE_WANNA_POSTING = "UPDATE_WANNA_POSTING";
 
-export function startWanna(isStartedWanna) {
-  return { type: WANNA_STARTED, isStartedWanna };
+export function updateWannaPosting(isWannaPosting) {
+  return { type: UPDATE_WANNA_POSTING, isWannaPosting };
 }

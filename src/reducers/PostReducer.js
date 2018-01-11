@@ -1,14 +1,14 @@
-import { WANNA_STARTED } from "../actions/PostAction";
+import { UPDATE_WANNA_POSTING } from "../actions/PostAction";
 
 const initinalState = {
-  isStartedWanna: false
+  isWannaPosting: false
 };
 
 export function postReducers(state = initinalState, action) {
   switch (action.type) {
-    case WANNA_STARTED:
+    case UPDATE_WANNA_POSTING:
       return Object.assign({}, state, {
-        isStartedWanna: action.isStartedWanna
+        isWannaPosting: action.isWannaPosting
       });
     default:
       return state;

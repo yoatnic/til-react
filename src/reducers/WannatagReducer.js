@@ -1,19 +1,26 @@
 import {
-  GET_NEXT_WANNATAGS,
-  UPDATE_FIRST_WANNATAG
+  UPDATE_LAST_WANNATAG_DATE,
+  UPDATE_FIRST_WANNATAG_DATE,
+  RESEST_WANNATAG_DATE
 } from "../actions/WannatagAction";
 
-const initinalNextWannatag = {
-  shownItemDate: 0,
-  firstItemDate: 0
+const initinalState = {
+  lastWannatagDate: 0,
+  firstWannatagDate: 0
 };
 
-export function wannatagReducers(state = initinalNextWannatag, action) {
+export function wannatagReducers(state = initinalState, action) {
   switch (action.type) {
-    case GET_NEXT_WANNATAGS:
-      return Object.assign({}, state, { shownItemDate: action.shownItemDate });
-    case UPDATE_FIRST_WANNATAG:
-      return Object.assign({}, state, { firstItemDate: action.firstItemDate });
+    case UPDATE_LAST_WANNATAG_DATE:
+      return Object.assign({}, state, {
+        lastWannatagDate: action.lastWannatagDate
+      });
+    case UPDATE_FIRST_WANNATAG_DATE:
+      return Object.assign({}, state, {
+        firstWannatagDate: action.firstWannatagDate
+      });
+    case RESEST_WANNATAG_DATE:
+      return Object.assign({}, state, initinalState);
     default:
       return state;
   }

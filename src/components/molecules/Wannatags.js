@@ -13,12 +13,12 @@ class Wannatags extends React.Component {
       let props = wannatag;
       if (i === 0) {
         props = Object.assign({}, wannatag, {
-          onUpdateFirstDate: this.props.onUpdateFirstDate
+          onUpdateFirstWannatagDate: this.props.onUpdateFirstWannatagDate
         });
       }
       if (i === this.props.wannatags.length - 1) {
         props = Object.assign({}, wannatag, {
-          onEnterWindow: this.props.onEnterWindow
+          onUpdateLastWannatagDate: this.props.onUpdateLastWannatagDate
         });
       }
       return <Wannatag key={props.wannatagId} {...props} />;
