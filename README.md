@@ -8,7 +8,7 @@ https://nodejs.org/ja/
 
 ### webpack
 
-Execute follow command on your terminal
+Execute following command on your terminal
 
 ```
 npm install -g webpack webpack-dev-server
@@ -16,7 +16,7 @@ npm install -g webpack webpack-dev-server
 
 ## run
 
-Execute follow command on your terminal
+Execute following command on your terminal
 
 ```
 npm start
