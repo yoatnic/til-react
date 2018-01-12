@@ -18,6 +18,7 @@ class Wannatag extends React.Component {
     this.state = {
       onUpdateLastWannatagDate: props.onUpdateLastWannatagDate
     };
+    this.onDelete = this.onDelete.bind(this);
   }
 
   componentDidMount() {
@@ -32,6 +33,16 @@ class Wannatag extends React.Component {
     this.setState({ onUpdateLastWannatagDate: false });
   }
 
+  onDelete() {
+    const method = "DELETE";
+    fetch(`/wannatags/${this.props.postDate}`, {
+      method
+    }).then(() => {
+      // TODO: Reimplement to no refresh
+      this.props.onResetWannatagDate();
+    });
+  }
+
   render() {
     const d = new Date(this.props.postDate);
     const dateStr =
@@ -43,7 +54,9 @@ class Wannatag extends React.Component {
         <div>{this.props.username}</div>
         <div>{this.props.title}</div>
         <p>{this.props.body}</p>
-        {this.props.isOwner ? <button>delete</button> : null}
+        {this.props.isOwner ? (
+          <button onClick={this.onDelete}>delete</button>
+        ) : null}
       </div>
     );
     if (this.state.onUpdateLastWannatagDate) {

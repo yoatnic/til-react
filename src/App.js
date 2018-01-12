@@ -12,7 +12,8 @@ class App extends React.Component {
       lastWannatagDate: this.props.lastWannatagDate,
       firstWannatagDate: this.props.firstWannatagDate,
       onUpdateLastWannatagDate: this.props.onUpdateLastWannatagDate,
-      onUpdateFirstWannatagDate: this.props.onUpdateFirstWannatagDate
+      onUpdateFirstWannatagDate: this.props.onUpdateFirstWannatagDate,
+      onResetWannatagDate: this.props.onResetWannatagDate
     };
     const headerProps = {
       onToggleWannaPosting: this.props.onToggleWannaPosting

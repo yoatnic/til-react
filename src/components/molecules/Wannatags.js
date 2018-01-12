@@ -10,14 +10,19 @@ const style = {
 class Wannatags extends React.Component {
   render() {
     const wannatags = this.props.wannatags.map((wannatag, i) => {
-      let props = wannatag;
+      const props = Object.assign(
+        {
+          onResetWannatagDate: this.props.onResetWannatagDate
+        },
+        wannatag
+      );
       if (i === 0) {
-        props = Object.assign({}, wannatag, {
+        Object.assign(props, {
           onUpdateFirstWannatagDate: this.props.onUpdateFirstWannatagDate
         });
       }
       if (i === this.props.wannatags.length - 1) {
-        props = Object.assign({}, wannatag, {
+        Object.assign(props, {
           onUpdateLastWannatagDate: this.props.onUpdateLastWannatagDate
         });
       }

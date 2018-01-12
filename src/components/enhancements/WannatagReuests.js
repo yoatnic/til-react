@@ -70,6 +70,7 @@ export default function(WrapedComponent) {
       const props = {
         onUpdateLastWannatagDate: this.props.onUpdateLastWannatagDate,
         onUpdateFirstWannatagDate: this.props.onUpdateFirstWannatagDate,
+        onResetWannatagDate: this.props.onResetWannatagDate,
         wannatags: this.state.wannatags
       };
       const showNewItems =
