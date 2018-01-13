@@ -4,6 +4,10 @@
 const path = require("path");
 const webpack = require("webpack");
 const LicenseWebpackPlugin = require("license-webpack-plugin");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const firebaseConfig = require("firebase-tools/lib/config").load({
+  cwd: process.cwd()
+});
 
 const BASE_PLUGINS = [
   new webpack.DefinePlugin({
@@ -38,30 +42,30 @@ module.exports = {
 
       require("./serverapi/Wannatags")(app);
       require("./serverapi/WannatagsFeed")(app);
+      app.use(require("superstatic")({ config: firebaseConfig.data.hosting }));
     }
   },
   plugins:
     process.env.NODE_ENV === "production"
       ? BASE_PLUGINS.concat([
-          new webpack.optimize.UglifyJsPlugin({
-            minimize: true,
-            sourceMap: false,
-            compressor: {
-              warnings: false
-            },
-            output: {
-              comments: false
-            }
-          }),
-          new LicenseWebpackPlugin({
-            pattern: /^(.*)$/,
-            filename: "licenses.txt"
-          })
+          // new webpack.optimize.UglifyJsPlugin({
+          //   minimize: true,
+          //   sourceMap: false,
+          //   compressor: {
+          //     warnings: false
+          //   },
+          //   output: {
+          //     comments: false
+          //   }
+          // })
         ])
       : BASE_PLUGINS.concat([
           new webpack.NamedModulesPlugin(),
           new webpack.NoEmitOnErrorsPlugin(),
-          new webpack.HotModuleReplacementPlugin()
+          new webpack.HotModuleReplacementPlugin(),
+          new HtmlWebpackPlugin({
+            template: "public/index.html"
+          })
         ]),
   module: {
     rules: [
