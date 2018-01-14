@@ -54,3 +54,6 @@ build/Release
 node_modules
 public/*
 !public/index.html
+
+# firebase
+src/infra/firebase.config.js

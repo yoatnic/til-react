@@ -1,4 +1,6 @@
 import React from "react";
+import firebase from "../../infra/FireBaseApp";
+import { wannatagReducers } from "../../reducers/WannatagReducer";
 
 export default function(WrapedComponent) {
   return class WannatagRequestHOC extends React.Component {
@@ -28,12 +30,35 @@ export default function(WrapedComponent) {
 
     async updateWannatags(lastWannatagDate) {
       try {
-        const wannatags = await this.getJson(`/wannatags/${lastWannatagDate}`);
-        this.setState(prevState => {
-          return {
-            wannatags: prevState.wannatags.concat(wannatags)
-          };
-        });
+        const cond = lastWannatagDate === 0 ? "startAt" : "endAt";
+        const wannatagsRef = await firebase
+          .database()
+          .ref("wannatags")
+          [cond](lastWannatagDate - 1, "postDate")
+          .orderByChild("postDate")
+          .limitToLast(20)
+          .once("value");
+
+        const wannatagsJSON = wannatagsRef.val();
+        if (wannatagsJSON) {
+          const wannatags = [];
+          for (let wannatagId in wannatagsJSON) {
+            wannatags.unshift(
+              Object.assign(
+                {
+                  wannatagId: wannatagId
+                },
+                wannatagsJSON[wannatagId]
+              )
+            );
+          }
+
+          this.setState(prevState => {
+            return {
+              wannatags: prevState.wannatags.concat(wannatags)
+            };
+          });
+        }
       } catch (e) {
         console.log(e);
       }
@@ -41,7 +66,7 @@ export default function(WrapedComponent) {
 
     componentDidMount() {
       this.updateWannatags(this.props.lastWannatagDate);
-      this.pollingFeed();
+      // this.pollingFeed();
     }
 
     componentWillReceiveProps(nextProps) {
