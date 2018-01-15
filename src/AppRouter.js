@@ -1,5 +1,5 @@
 import React from "react";
-import App from "./App";
+import Home from "./components/pages/Home";
 import { BrowserRouter, Route } from "react-router-dom";
 import Login from "./components/atom/Login";
 
@@ -8,7 +8,7 @@ class AppRouter extends React.Component {
     return (
       <BrowserRouter>
         <div>
-          <Route exact path="/" render={() => <App {...this.props} />} />
+          <Route exact path="/" render={() => <Home {...this.props} />} />
           {/* <Route path="/signup" component={Login} /> */}
           {/* <Route path="/login" component={} />
         <Route path="/logout" component={} />

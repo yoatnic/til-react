@@ -1,12 +1,12 @@
 import React from "react";
-import Header from "./components/molecules/Header";
-import WannatagRequestFactory from "./components/enhancements/WannatagReuests";
-import Wannatags from "./components/molecules/Wannatags";
-import WannatagPostForm from "./components/atom/WannatagPostForm";
+import Header from "../molecules/Header";
+import WannatagRequestFactory from "../enhancements/WannatagReuests";
+import Wannatags from "../molecules/Wannatags";
+import WannatagPostForm from "../atom/WannatagPostForm";
 
 const WrappedWannatag = WannatagRequestFactory(Wannatags);
 
-class App extends React.Component {
+class Home extends React.Component {
   render() {
     const wannatagProps = {
       lastWannatagDate: this.props.lastWannatagDate,
@@ -32,4 +32,4 @@ class App extends React.Component {
   }
 }
 
-export default App;
+export default Home;
