@@ -38,7 +38,6 @@ module.exports = {
 
       require("./serverapi/Wannatags")(app);
       require("./serverapi/WannatagsFeed")(app);
-      // app.use(require("superstatic")({ config: firebaseConfig.data.hosting }));
     }
   },
   plugins:
