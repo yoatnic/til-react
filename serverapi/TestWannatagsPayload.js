@@ -16,9 +16,9 @@ for (let i = 0; i < 100; i++) {
   pyaload.push({
     wannatagId: i.toString(),
     title: randomStr(),
-    body: randomStr(10, 200),
+    body: randomStr(1, 300),
     username: userTable[i % userTable.length],
-    postDate: dateSeed - i,
+    postDate: dateSeed - i * 10000,
     isOwner: i % userTable.length === 0
   });
 }
