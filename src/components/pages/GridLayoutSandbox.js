@@ -1,5 +1,5 @@
 import React from "react";
-
+import "../../index.css";
 class Wannatag extends React.Component {
   componentDidMount() {
     const height = this.divElement.clientHeight;
@@ -25,7 +25,11 @@ class Wannatag extends React.Component {
       `${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}`;
 
     return (
-      <div style={style} ref={divElement => (this.divElement = divElement)}>
+      <div
+        style={style}
+        ref={divElement => (this.divElement = divElement)}
+        className={transform ? "wannatag-animation" : ""}
+      >
         <div>{dateStr}</div>
         <div>{this.props.author}</div>
         <div>{this.props.title}</div>
@@ -85,8 +89,8 @@ class GridLayoutSandbox extends React.Component {
     const col = this.minIndex(rails, size);
     const mergin = 10;
     const translate = {
-      x: 250 * col + mergin * col,
-      y: rails[col].height + mergin * rails[col].itemCount
+      x: 250 * col + mergin * col + 10,
+      y: rails[col].height + mergin * rails[col].itemCount + 10
     };
     rails[col].height += size;
     rails[col].itemCount++;
