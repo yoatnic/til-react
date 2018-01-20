@@ -44,14 +44,28 @@ class GridLayoutSandbox extends React.Component {
     super();
     this.state = {
       wannatags: [],
-      wannatagSizes: []
+      wannatagSizes: [],
+      rails: []
     };
   }
 
   async componentWillMount() {
     const res = await fetch("/wannatags/0");
     const wannatags = await res.json();
-    this.setState({ wannatags });
+    this.setState({ wannatags, rails: this.getRails() });
+
+    window.onresize = () => {
+      this.setState({ rails: this.getRails() });
+    };
+  }
+
+  getRails() {
+    const cols = Math.floor(window.innerWidth / 270);
+    const rails = [];
+    for (let i = 0; i < cols; i++) {
+      rails.push({ height: 0, itemCount: 0 });
+    }
+    return rails;
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -98,11 +112,7 @@ class GridLayoutSandbox extends React.Component {
   }
 
   render() {
-    const rails = [
-      { height: 0, itemCount: 0 },
-      { height: 0, itemCount: 0 },
-      { height: 0, itemCount: 0 }
-    ];
+    const rails = this.state.rails;
     const wannatags = this.state.wannatags.map((wannatag, i) => {
       let translate = null;
       if (this.state.wannatagSizes.length === this.state.wannatags.length) {
