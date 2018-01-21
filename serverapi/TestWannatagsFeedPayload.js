@@ -22,4 +22,23 @@ for (let i = 0; i < 13; i++) {
   });
 }
 
-module.exports = payload;
+const obj = {
+  getwanatags:function wanatags(postDate) {
+    var index = payload.length;
+    var index = Number(payload[index-1].wannatagId);
+    payload.length = 0;
+    for (let i = index + 1; i < index + 11; i++) {
+      payload.push({
+        wannatagId: (i).toString(),
+        title: randomStr(),
+        body: randomStr(10, 200),
+        username: userTable[i % (userTable.length - 1) + 1],
+        postDate: dateSeed + 1000000 - i * 1000,
+        isOwner: false
+      });
+    }
+    return payload;
+  },
+}
+
+module.exports = obj;
