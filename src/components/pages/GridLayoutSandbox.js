@@ -7,13 +7,12 @@ class Wannatag extends React.Component {
   }
 
   render() {
-    const width = "250px";
     const transform = this.props.translate
       ? `translate(${this.props.translate.x}px, ${this.props.translate.y}px)`
       : "";
     const style = {
       boxShadow: "0 0 1px black",
-      width,
+      width: `${this.props.width}px`,
       wordWrap: "break-word",
       display: "inline-block",
       transform,
@@ -45,7 +44,8 @@ class GridLayoutSandbox extends React.Component {
     this.state = {
       wannatags: [],
       wannatagSizes: [],
-      rails: []
+      rails: [],
+      childWidth: 250
     };
   }
 
@@ -89,7 +89,6 @@ class GridLayoutSandbox extends React.Component {
   minIndex(rails) {
     let dst = 0;
     for (let i = 1, minHeihgt = rails[0].height; i < rails.length; i++) {
-      console.log(minHeihgt, rails[i].height);
       if (minHeihgt > rails[i].height) {
         minHeihgt = rails[i].height;
         dst = i;
@@ -103,7 +102,7 @@ class GridLayoutSandbox extends React.Component {
     const col = this.minIndex(rails, size);
     const mergin = 10;
     const translate = {
-      x: 250 * col + mergin * col + 10,
+      x: this.state.childWidth * col + mergin * col + 10,
       y: rails[col].height + mergin * rails[col].itemCount + 10
     };
     rails[col].height += size;
@@ -125,11 +124,12 @@ class GridLayoutSandbox extends React.Component {
           {...wannatag}
           sizeRef={this.pushSize.bind(this, i)}
           translate={translate}
+          width={this.state.childWidth}
         />
       );
     });
     const style = {
-      width: "850px"
+      width: "100%"
     };
     return <div style={style}>{wannatags}</div>;
   }
