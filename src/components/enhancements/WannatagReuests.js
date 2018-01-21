@@ -1,5 +1,7 @@
 import React from "react";
-import firebase from "../../infra/FireBaseApp";
+//import firebase from "../../infra/FireBaseApp";
+import testwannatagsfeedpayload from "../../../serverapi/TestWannatagsFeedPayload.js";
+import testwannatagspayload from "../../../serverapi/TestWannatagsPayload.js";
 import { wannatagReducers } from "../../reducers/WannatagReducer";
 
 export default function(WrapedComponent) {
@@ -16,10 +18,13 @@ export default function(WrapedComponent) {
 
     pollingFeed() {
       setInterval(async () => {
-        const wannatagsFeed = await this.getJson(
+/*        const wannatagsFeed = await this.getJson(
           `/wannatagsFeed/${this.props.firstWannatagDate}`
         );
-        if (wannatagsFeed.length > 0) this.setState({ wannatagsFeed });
+ */       
+      const wannatagsFeed = testwannatagspayload;
+      console.log(wannatagsFeed);
+      if (wannatagsFeed.length > 0) this.setState({ wannatagsFeed });
       }, 5000);
     }
 
@@ -31,15 +36,9 @@ export default function(WrapedComponent) {
     async updateWannatags(lastWannatagDate) {
       try {
         const cond = lastWannatagDate === 0 ? "startAt" : "endAt";
-        const wannatagsRef = await firebase
-          .database()
-          .ref("wannatags")
-          [cond](lastWannatagDate - 1, "postDate")
-          .orderByChild("postDate")
-          .limitToLast(20)
-          .once("value");
-
-        const wannatagsJSON = wannatagsRef.val();
+        var index = 0;
+        const wannatagsRef = testwannatagsfeedpayload.getwanatags(lastWannatagDate);
+        const wannatagsJSON = wannatagsRef;
         if (wannatagsJSON) {
           const wannatags = [];
           for (let wannatagId in wannatagsJSON) {
