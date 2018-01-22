@@ -1,5 +1,4 @@
 import React from "react";
-//import firebase from "../../infra/FireBaseApp";
 import testwannatagsfeedpayload from "../../../serverapi/TestWannatagsFeedPayload.js";
 import testwannatagspayload from "../../../serverapi/TestWannatagsPayload.js";
 import { wannatagReducers } from "../../reducers/WannatagReducer";
