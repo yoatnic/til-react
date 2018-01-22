@@ -16,11 +16,7 @@ export default function(WrapedComponent) {
     }
 
     pollingFeed() {
-      setInterval(async () => {
-/*        const wannatagsFeed = await this.getJson(
-          `/wannatagsFeed/${this.props.firstWannatagDate}`
-        );
- */       
+      setInterval(async () => {  
       const wannatagsFeed = testwannatagspayload;
       console.log(wannatagsFeed);
       if (wannatagsFeed.length > 0) this.setState({ wannatagsFeed });
