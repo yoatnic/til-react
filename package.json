@@ -16,6 +16,7 @@
   },
   "scripts": {
     "start": "webpack-dev-server",
+    "build": "webpack",
     "flow": "flow"
   },
   "devDependencies": {
