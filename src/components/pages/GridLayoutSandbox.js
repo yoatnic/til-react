@@ -3,7 +3,7 @@ import "../../index.css";
 class Wannatag extends React.Component {
   componentDidMount() {
     const height = this.divElement.clientHeight;
-    this.props.sizeRef(height);
+    this.props.heightRef(height);
   }
 
   render() {
@@ -43,7 +43,7 @@ class GridLayoutSandbox extends React.Component {
     super();
     this.state = {
       wannatags: [],
-      wannatagSizes: [],
+      wannatagHeights: [],
       rails: [],
       childWidth: 250
     };
@@ -70,19 +70,19 @@ class GridLayoutSandbox extends React.Component {
 
   shouldComponentUpdate(nextProps, nextState) {
     if (
-      nextState.wannatagSizes.length > 0 &&
-      nextState.wannatagSizes.length < this.state.wannatagSizes.length
+      nextState.wannatagHeights.length > 0 &&
+      nextState.wannatagHeights.length < this.state.wannatagHeights.length
     ) {
       return false;
     }
     return true;
   }
 
-  pushSize(key, size) {
+  pushHeight(key, height) {
     this.setState(prevState => {
-      const wannatagSizes = [...prevState.wannatagSizes, { size, key }];
-      wannatagSizes.sort((item1, item2) => item1.key - item2.key);
-      return Object.assign({}, prevState, { wannatagSizes });
+      const wannatagHeights = [...prevState.wannatagHeights, { height, key }];
+      wannatagHeights.sort((item1, item2) => item1.key - item2.key);
+      return Object.assign({}, prevState, { wannatagHeights });
     });
   }
 
@@ -98,14 +98,14 @@ class GridLayoutSandbox extends React.Component {
   }
 
   calculateChildTranslate(rails, i) {
-    const size = this.state.wannatagSizes[i].size;
-    const col = this.minIndex(rails, size);
+    const height = this.state.wannatagHeights[i].height;
+    const col = this.minIndex(rails, height);
     const mergin = 10;
     const translate = {
       x: this.state.childWidth * col + mergin * col + 10,
       y: rails[col].height + mergin * rails[col].itemCount + 10
     };
-    rails[col].height += size;
+    rails[col].height += height;
     rails[col].itemCount++;
     return translate;
   }
@@ -114,7 +114,7 @@ class GridLayoutSandbox extends React.Component {
     const rails = this.state.rails;
     const wannatags = this.state.wannatags.map((wannatag, i) => {
       let translate = null;
-      if (this.state.wannatagSizes.length === this.state.wannatags.length) {
+      if (this.state.wannatagHeights.length === this.state.wannatags.length) {
         translate = this.calculateChildTranslate(rails, i);
       }
 
@@ -122,7 +122,7 @@ class GridLayoutSandbox extends React.Component {
         <Wannatag
           key={wannatag.wannatagId}
           {...wannatag}
-          sizeRef={this.pushSize.bind(this, i)}
+          heightRef={this.pushHeight.bind(this, i)}
           translate={translate}
           width={this.state.childWidth}
         />
