@@ -1,59 +1,25 @@
 import React from "react";
-import "../../index.css";
-class Wannatag extends React.Component {
-  componentDidMount() {
-    const height = this.divElement.clientHeight;
-    this.props.heightRef(height);
-  }
+import Wannatag from "../atom/Wannatag2";
 
-  render() {
-    const transform = this.props.translate
-      ? `translate(${this.props.translate.x}px, ${this.props.translate.y}px)`
-      : "";
-    const style = {
-      boxShadow: "0 0 1px black",
-      width: `${this.props.width}px`,
-      wordWrap: "break-word",
-      display: "inline-block",
-      transform,
-      position: "absolute"
-    };
-    const d = new Date(this.props.postDate);
-    const dateStr =
-      `${d.getFullYear()}/${d.getMonth() + 1}/${d.getDate()} ` +
-      `${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}`;
+const style = {
+  width: "100%"
+};
 
-    return (
-      <div
-        style={style}
-        ref={divElement => (this.divElement = divElement)}
-        className={transform ? "wannatag-animation" : ""}
-      >
-        <div>{dateStr}</div>
-        <div>{this.props.author}</div>
-        <div>{this.props.title}</div>
-        <p>{this.props.body}</p>
-      </div>
-    );
-  }
-}
-
-class GridLayoutSandbox extends React.Component {
+class Wannatags extends React.Component {
   constructor() {
     super();
     this.state = {
-      wannatags: [],
       wannatagHeights: [],
       rails: [],
       childWidth: 250
     };
   }
 
-  async componentWillMount() {
-    const res = await fetch("/wannatags/0");
-    const wannatags = await res.json();
-    this.setState({ wannatags, rails: this.getRails() });
+  componentWillMount() {
+    this.setState({ rails: this.getRails() });
+  }
 
+  componentDidMount() {
     window.onresize = () => {
       this.setState({ rails: this.getRails() });
     };
@@ -111,28 +77,36 @@ class GridLayoutSandbox extends React.Component {
   }
 
   render() {
-    const rails = this.state.rails;
-    const wannatags = this.state.wannatags.map((wannatag, i) => {
+    const rails = this.getRails();
+    const wannatags = this.props.wannatags.map((wannatag, i) => {
       let translate = null;
-      if (this.state.wannatagHeights.length === this.state.wannatags.length) {
+      if (this.state.wannatagHeights.length === this.props.wannatags.length) {
         translate = this.calculateChildTranslate(rails, i);
       }
 
-      return (
-        <Wannatag
-          key={wannatag.wannatagId}
-          {...wannatag}
-          heightRef={this.pushHeight.bind(this, i)}
-          translate={translate}
-          width={this.state.childWidth}
-        />
+      const props = Object.assign(
+        {
+          onResetWannatagDate: this.props.onResetWannatagDate,
+          heightRef: this.pushHeight.bind(this, i),
+          translate: translate,
+          width: this.state.childWidth
+        },
+        wannatag
       );
+      if (i === 0) {
+        Object.assign(props, {
+          onUpdateFirstWannatagDate: this.props.onUpdateFirstWannatagDate
+        });
+      }
+      if (i === this.props.wannatags.length - 1) {
+        Object.assign(props, {
+          onUpdateLastWannatagDate: this.props.onUpdateLastWannatagDate
+        });
+      }
+      return <Wannatag key={props.wannatagId} {...props} />;
     });
-    const style = {
-      width: "100%"
-    };
     return <div style={style}>{wannatags}</div>;
   }
 }
 
-export default GridLayoutSandbox;
+export default Wannatags;
