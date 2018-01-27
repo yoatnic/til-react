@@ -10,28 +10,31 @@ class Wannatags extends React.Component {
     super();
     this.state = {
       wannatagHeights: [],
-      rails: [],
+      cols: 0,
       childWidth: 250
     };
   }
 
   componentWillMount() {
-    this.setState({ rails: this.getRails() });
+    this.setState({ cols: this.getColsCount() });
   }
 
   componentDidMount() {
     window.onresize = () => {
-      this.setState({ rails: this.getRails() });
+      this.setState({ cols: this.getColsCount() });
     };
   }
 
-  getRails() {
-    const cols = Math.floor(window.innerWidth / 270);
-    const rails = [];
-    for (let i = 0; i < cols; i++) {
-      rails.push({ height: 0, itemCount: 0 });
+  getColsCount() {
+    return Math.floor(window.innerWidth / 270);
+  }
+
+  createCols() {
+    const cols = [];
+    for (let i = 0; i < this.state.cols; i++) {
+      cols.push({ height: 0, itemCount: 0 });
     }
-    return rails;
+    return cols;
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -52,36 +55,36 @@ class Wannatags extends React.Component {
     });
   }
 
-  minIndex(rails) {
+  minIndex(cols) {
     let dst = 0;
-    for (let i = 1, minHeihgt = rails[0].height; i < rails.length; i++) {
-      if (minHeihgt > rails[i].height) {
-        minHeihgt = rails[i].height;
+    for (let i = 1, minHeihgt = cols[0].height; i < cols.length; i++) {
+      if (minHeihgt > cols[i].height) {
+        minHeihgt = cols[i].height;
         dst = i;
       }
     }
     return dst;
   }
 
-  calculateChildTranslate(rails, i) {
+  calculateChildTranslate(cols, i) {
     const height = this.state.wannatagHeights[i].height;
-    const col = this.minIndex(rails, height);
+    const col = this.minIndex(cols, height);
     const mergin = 10;
     const translate = {
       x: this.state.childWidth * col + mergin * col + 10,
-      y: rails[col].height + mergin * rails[col].itemCount + 10
+      y: cols[col].height + mergin * cols[col].itemCount + 10
     };
-    rails[col].height += height;
-    rails[col].itemCount++;
+    cols[col].height += height;
+    cols[col].itemCount++;
     return translate;
   }
 
   render() {
-    const rails = this.getRails();
+    const cols = this.createCols();
     const wannatags = this.props.wannatags.map((wannatag, i) => {
       let translate = null;
       if (this.state.wannatagHeights.length === this.props.wannatags.length) {
-        translate = this.calculateChildTranslate(rails, i);
+        translate = this.calculateChildTranslate(cols, i);
       }
 
       const props = Object.assign(
