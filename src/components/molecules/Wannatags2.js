@@ -66,8 +66,7 @@ class Wannatags extends React.Component {
     return dst;
   }
 
-  calculateChildTranslate(cols, i) {
-    const height = this.state.wannatagHeights[i].height;
+  calculateChildTranslate(cols, height) {
     const col = this.minIndex(cols, height);
     const mergin = 10;
     const translate = {
@@ -84,7 +83,8 @@ class Wannatags extends React.Component {
     const wannatags = this.props.wannatags.map((wannatag, i) => {
       let translate = null;
       if (this.state.wannatagHeights.length === this.props.wannatags.length) {
-        translate = this.calculateChildTranslate(cols, i);
+        const height = this.state.wannatagHeights[i].height;
+        translate = this.calculateChildTranslate(cols, height);
       }
 
       const props = Object.assign(
