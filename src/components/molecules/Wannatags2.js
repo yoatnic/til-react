@@ -50,7 +50,7 @@ class Wannatags extends React.Component {
   pushHeight(key, height) {
     this.setState(prevState => {
       const wannatagHeights = [...prevState.wannatagHeights, { height, key }];
-      wannatagHeights.sort((item1, item2) => item1.key - item2.key);
+      wannatagHeights.sort((item1, item2) => item2.key - item1.key);
       return Object.assign({}, prevState, { wannatagHeights });
     });
   }
@@ -90,7 +90,7 @@ class Wannatags extends React.Component {
       const props = Object.assign(
         {
           onResetWannatagDate: this.props.onResetWannatagDate,
-          heightRef: this.pushHeight.bind(this, i),
+          heightRef: this.pushHeight.bind(this, wannatag.postDate),
           translate: translate,
           width: this.state.childWidth
         },
