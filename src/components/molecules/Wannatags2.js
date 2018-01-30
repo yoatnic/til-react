@@ -25,6 +25,12 @@ class Wannatags extends React.Component {
     };
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.wannatags.length === 0) {
+      this.setState({ wannatagHeights: [] });
+    }
+  }
+
   getColsCount() {
     return Math.floor(window.innerWidth / 270);
   }

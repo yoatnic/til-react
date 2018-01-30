@@ -56,6 +56,7 @@ export default function(WrapedComponent) {
         nextProps.lastWannatagDate === 0
       ) {
         this.setState({ wannatags: [], wannatagsFeed: [] });
+        this.updateWannatags(nextProps.lastWannatagDate);
       }
 
       if (nextProps.lastWannatagDate !== this.props.lastWannatagDate) {
