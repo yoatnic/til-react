@@ -74,7 +74,7 @@ class Wannatags extends React.Component {
 
   calculateChildTranslate(cols, height) {
     const col = this.minIndex(cols, height);
-    const mergin = 10;
+    const mergin = 20;
     const translate = {
       x: this.state.childWidth * col + mergin * col + 10,
       y: cols[col].height + mergin * cols[col].itemCount + 10
