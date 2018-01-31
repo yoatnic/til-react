@@ -45,13 +45,23 @@ class Wannatag extends React.Component {
     const transform = animation
       ? `translate(${this.props.translate.x}px, ${this.props.translate.y}px)`
       : "translate(0px, 10000px)";
-    const style = {
+    const wannatagStyle = {
       boxShadow: "0 0 1px black",
       width: `${this.props.width}px`,
       wordWrap: "break-word",
       display: "inline-block",
       transform,
-      position: "absolute"
+      position: "absolute",
+      borderRadius: "5px"
+    };
+    const headerStyle = {
+      backgroundColor: "#EFEFEF",
+      borderTopLeftRadius: "5px",
+      borderTopRightRadius: "5px",
+      padding: "10px"
+    };
+    const bodyStyle = {
+      padding: "10px"
     };
     const d = new Date(this.props.postDate);
     const dateStr =
@@ -59,13 +69,17 @@ class Wannatag extends React.Component {
       `${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}`;
     let elem = (
       <div>
-        <div>{dateStr}</div>
-        <div>{this.props.author}</div>
-        <div>{this.props.title}</div>
-        <p>{this.props.body}</p>
-        {this.isOwner() ? (
-          <button onClick={this.onDelete}>delete</button>
-        ) : null}
+        <div style={headerStyle}>
+          <div>{dateStr}</div>
+          <div>{this.props.author}</div>
+          <div>{this.props.title}</div>
+        </div>
+        <div style={bodyStyle}>
+          <span>{this.props.body}</span>
+          {this.isOwner() ? (
+            <button onClick={this.onDelete}>delete</button>
+          ) : null}
+        </div>
       </div>
     );
     if (this.state.onUpdateLastWannatagDate) {
@@ -77,7 +91,7 @@ class Wannatag extends React.Component {
     }
     return (
       <div
-        style={style}
+        style={wannatagStyle}
         ref={divElement => (this.divElement = divElement)}
         // className={animation ? "wannatag-animation" : ""}
       >
