@@ -37,7 +37,7 @@ class Wannatag extends React.Component {
 
   isOwner() {
     // TODO: tempolary
-    return this.props.author === "tempuser";
+    return this.props.isOwner;
   }
 
   render() {
@@ -73,12 +73,12 @@ class Wannatag extends React.Component {
           <div>{dateStr}</div>
           <div>{this.props.author}</div>
           <div>{this.props.title}</div>
-        </div>
-        <div style={bodyStyle}>
-          <span>{this.props.body}</span>
           {this.isOwner() ? (
             <button onClick={this.onDelete}>delete</button>
           ) : null}
+        </div>
+        <div style={bodyStyle}>
+          <span>{this.props.body}</span>
         </div>
       </div>
     );
