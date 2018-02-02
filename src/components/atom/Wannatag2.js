@@ -2,6 +2,16 @@ import React from "react";
 import Observer from "react-intersection-observer";
 import "../../index.css";
 
+const headerStyle = {
+  backgroundColor: "#EFEFEF",
+  borderTopLeftRadius: "5px",
+  borderTopRightRadius: "5px",
+  padding: "10px"
+};
+const bodyStyle = {
+  padding: "10px"
+};
+
 class Wannatag extends React.Component {
   constructor(props) {
     super();
@@ -54,15 +64,7 @@ class Wannatag extends React.Component {
       position: "absolute",
       borderRadius: "5px"
     };
-    const headerStyle = {
-      backgroundColor: "#EFEFEF",
-      borderTopLeftRadius: "5px",
-      borderTopRightRadius: "5px",
-      padding: "10px"
-    };
-    const bodyStyle = {
-      padding: "10px"
-    };
+
     const d = new Date(this.props.postDate);
     const dateStr =
       `${d.getFullYear()}/${d.getMonth() + 1}/${d.getDate()} ` +
