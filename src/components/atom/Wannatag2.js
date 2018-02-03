@@ -37,7 +37,7 @@ class Wannatag extends React.Component {
 
   onDelete() {
     const method = "DELETE";
-    fetch(`/wannatags/${this.props.postDate}`, {
+    fetch(`/wannatags/${this.props.wannatagId}`, {
       method
     }).then(() => {
       // TODO: Reimplement to no refresh
