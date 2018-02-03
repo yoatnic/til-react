@@ -16,7 +16,7 @@
   },
   "scripts": {
     "start": "webpack-dev-server",
-    "build": "webpack",
+    "build": "NODE_ENV=production webpack",
     "flow": "flow"
   },
   "devDependencies": {
