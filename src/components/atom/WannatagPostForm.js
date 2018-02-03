@@ -16,7 +16,7 @@ class WannatagPostForm extends React.Component {
     this.state = {
       title: "",
       body: "",
-      username: "tempuser"
+      useId: 9999
     };
 
     this.onChangeTitle = this.onChangeTitle.bind(this);
