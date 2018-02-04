@@ -1,27 +1,40 @@
+const url = require("url");
 const db = require("./TestWannatagsPayload");
+const feed = require("./TestWannatagsFeedPayload");
 let id = 10000000;
 
 module.exports = function(app) {
-  app.get("/wannatags/:date", function(req, res) {
-    const startDate = parseInt(req.params.date);
-    if (startDate === 0) {
-      res.json(db.slice(0, 20));
-    } else {
-      const i = db.findIndex(p => p.postDate === startDate);
-      if (i < 0) {
-        console.log("[wannatags]find failed");
-        res.json([]);
-      } else {
-        const s = i + 1;
-        const j = db.slice(s, s + 20);
-        console.log(
-          `[wannatags]find index: ${i}`,
-          `db length: ${j.length}`,
-          `db items: ${db.length}`
-        );
-        res.json(j);
-      }
+  app.get("/wannatags", function(req, res) {
+    const url_parts = url.parse(req.url, true);
+    const query = url_parts.query;
+    const compare = query.compare || "older";
+
+    if (compare === "newer") {
+      res.json(feed);
+      return;
     }
+
+    if (query.postDate === void 0) {
+      res.json(db.slice(0, 20));
+      return;
+    }
+
+    const startDate = parseInt(query.postDate);
+    const i = db.findIndex(p => p.postDate === startDate);
+    if (i < 0) {
+      console.log("[wannatags]find failed");
+      res.json([]);
+      return;
+    }
+
+    const s = i + 1;
+    const j = db.slice(s, s + 20);
+    console.log(
+      `[wannatags]find index: ${i}`,
+      `db length: ${j.length}`,
+      `db items: ${db.length}`
+    );
+    res.json(j);
   });
 
   app.post("/wannatags", function(req, res) {
@@ -29,7 +42,7 @@ module.exports = function(app) {
       wannatagId: (id++).toString(),
       title: req.body.title,
       body: req.body.body,
-      username: req.body.username,
+      username: "posted_user_name",
       postDate: new Date().getTime(),
       isOwner: true
     });

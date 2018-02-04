@@ -37,7 +37,6 @@ module.exports = {
       app.use(bodyParser());
 
       require("./serverapi/Wannatags")(app);
-      require("./serverapi/WannatagsFeed")(app);
     }
   },
   plugins:
