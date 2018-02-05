@@ -49,16 +49,19 @@ module.exports = function(app) {
     res.sendStatus(200);
   });
 
-  app.delete("/wannatags/:date", function(req, res) {
-    const targetDate = parseInt(req.params.date);
-    const i = db.findIndex(p => p.postDate === targetDate);
+  app.delete("/wannatags/:wannatagId", function(req, res) {
+    const i = db.findIndex(p => {
+      return p.wannatagId == req.params.wannatagId;
+    });
     if (i < 0) {
-      console.log("[wannatags]find failed");
+      console.log("[wannatags delete]find failed");
       res.sendStatus(500);
       return;
     }
     db.splice(i, 1);
-    console.log(`[wannatags]delete item, it has date: ${req.params.date}`);
+    console.log(
+      `[wannatags]delete item, it has wannatagId: ${req.params.wannatagId}`
+    );
     res.sendStatus(200);
   });
 };

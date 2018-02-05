@@ -35,14 +35,12 @@ class Wannatag extends React.Component {
     this.setState({ onUpdateLastWannatagDate: false });
   }
 
-  onDelete() {
-    const method = "DELETE";
-    fetch(`/wannatags/${this.props.wannatagId}`, {
-      method
-    }).then(() => {
-      // TODO: Reimplement to no refresh
-      this.props.onResetWannatagDate();
+  async onDelete() {
+    const res = await fetch(`/wannatags/${this.props.wannatagId}`, {
+      method: "DELETE"
     });
+    // TODO wait for complate transaction
+    if (res.ok) setTimeout(() => this.props.onResetWannatagDate(), 3000);
   }
 
   isOwner() {
