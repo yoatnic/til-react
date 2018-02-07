@@ -1,5 +1,4 @@
 import React from "react";
-import firebase from "../../infra/FireBaseApp";
 import { wannatagReducers } from "../../reducers/WannatagReducer";
 
 export default function(WrapedComponent) {
@@ -17,7 +16,7 @@ export default function(WrapedComponent) {
     pollingFeed() {
       setInterval(async () => {
         const wannatagsFeed = await this.getJson(
-          `/wannatagsFeed/${this.props.firstWannatagDate}`
+          `/wannatags?compare=newer&postDate=${this.props.firstWannatagDate}`
         );
         if (wannatagsFeed.length > 0) this.setState({ wannatagsFeed });
       }, 5000);
@@ -30,29 +29,12 @@ export default function(WrapedComponent) {
 
     async updateWannatags(lastWannatagDate) {
       try {
-        const cond = lastWannatagDate === 0 ? "startAt" : "endAt";
-        const wannatagsRef = await firebase
-          .database()
-          .ref("wannatags")
-          [cond](lastWannatagDate - 1, "postDate")
-          .orderByChild("postDate")
-          .limitToLast(20)
-          .once("value");
+        const postDate =
+          lastWannatagDate > 0 ? `&postDate=${lastWannatagDate}` : "";
+        const req = await fetch(`wannatags?limit=20${postDate}`);
+        const wannatags = await req.json();
 
-        const wannatagsJSON = wannatagsRef.val();
-        if (wannatagsJSON) {
-          const wannatags = [];
-          for (let wannatagId in wannatagsJSON) {
-            wannatags.unshift(
-              Object.assign(
-                {
-                  wannatagId: wannatagId
-                },
-                wannatagsJSON[wannatagId]
-              )
-            );
-          }
-
+        if (wannatags.length > 0) {
           this.setState(prevState => {
             return {
               wannatags: prevState.wannatags.concat(wannatags)
@@ -66,7 +48,7 @@ export default function(WrapedComponent) {
 
     componentDidMount() {
       this.updateWannatags(this.props.lastWannatagDate);
-      // this.pollingFeed();
+      this.pollingFeed();
     }
 
     componentWillReceiveProps(nextProps) {
@@ -75,6 +57,7 @@ export default function(WrapedComponent) {
         nextProps.lastWannatagDate === 0
       ) {
         this.setState({ wannatags: [], wannatagsFeed: [] });
+        this.updateWannatags(nextProps.lastWannatagDate);
       }
 
       if (nextProps.lastWannatagDate !== this.props.lastWannatagDate) {
