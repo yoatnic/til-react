@@ -1,6 +1,6 @@
 import React from "react";
 import Home from "./components/pages/Home";
-// import GridLayoutSandbox from "./components/pages/GridLayoutSandbox";
+import Sandbox from "./components/pages/Sandbox";
 import { BrowserRouter, Route } from "react-router-dom";
 import Login from "./components/atom/Login";
 
@@ -10,6 +10,11 @@ class AppRouter extends React.Component {
       <BrowserRouter>
         <div>
           <Route exact path="/" render={() => <Home {...this.props} />} />
+          <Route
+            exact
+            path="/sandbox"
+            render={() => <Sandbox {...this.props} />}
+          />
           {/* <Route path="/signup" component={Login} /> */}
           {/* <Route path="/login" component={} />
         <Route path="/logout" component={} />
