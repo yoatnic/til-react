@@ -10,9 +10,9 @@ const Sandbox = function() {
   };
   return (
     <div>
-      <Wannatag {...props} />
-      <Wannatag {...props} />
-      <Wannatag {...props} />
+      <Wannatag {...props} weight={0} />
+      <Wannatag {...props} weight={1} />
+      <Wannatag {...props} weight={2} />
     </div>
   );
 };
