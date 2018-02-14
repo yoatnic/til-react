@@ -1,4 +1,5 @@
 import React from "react";
+import ReactDOM from "react-dom";
 import Observer from "react-intersection-observer";
 import "../../index.css";
 
@@ -16,7 +17,8 @@ class Wannatag extends React.Component {
   constructor(props) {
     super();
     this.state = {
-      onUpdateLastWannatagDate: props.onUpdateLastWannatagDate
+      onUpdateLastWannatagDate: props.onUpdateLastWannatagDate,
+      animated: false
     };
     this.onDelete = this.onDelete.bind(this);
   }
@@ -50,7 +52,7 @@ class Wannatag extends React.Component {
 
   render() {
     const animation = !!this.props.translate;
-    const transform = animation
+    const translate = animation
       ? `translate(${this.props.translate.x}px, ${this.props.translate.y}px)`
       : "translate(0px, 10000px)";
     const wannatagStyle = {
@@ -58,9 +60,10 @@ class Wannatag extends React.Component {
       width: `${this.props.width}px`,
       wordWrap: "break-word",
       display: "inline-block",
-      transform,
+      transform: translate,
       position: "absolute",
-      borderRadius: "5px"
+      borderRadius: "2.5px",
+      opacity: this.state.animated ? 1 : 0
     };
 
     const d = new Date(this.props.postDate);
@@ -88,6 +91,24 @@ class Wannatag extends React.Component {
           {elem}
         </Observer>
       );
+    }
+
+    if (!this.state.animated && animation) {
+      setTimeout(() => {
+        const el = ReactDOM.findDOMNode(this);
+        el
+          .animate(
+            [
+              { transform: `${translate} scale(0.5)`, opacity: 0.6 },
+              { transform: `${translate} scale(0.8)`, opacity: 0.8 },
+              { transform: `${translate} scale(1.0)`, opacity: 1 }
+            ],
+            200
+          )
+          .finished.then(() => {
+            this.setState({ animated: true });
+          });
+      }, 50);
     }
     return (
       <div

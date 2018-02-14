@@ -37,7 +37,7 @@ export default function(WrapedComponent) {
         if (wannatags.length > 0) {
           this.setState(prevState => {
             return {
-              wannatags: prevState.wannatags.concat(wannatags)
+              wannatags: [...prevState.wannatags, ...wannatags]
             };
           });
         }
