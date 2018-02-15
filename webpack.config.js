@@ -25,7 +25,7 @@ module.exports = {
   output: {
     filename: "bundle.js",
     path: process.env.NODE_ENV === "production" ?
-      path.resolve(__dirname, "..//public") :
+      path.resolve(__dirname, "../backend/public") :
       path.resolve(__dirname, "public"),
     publicPath: "/"
   },
