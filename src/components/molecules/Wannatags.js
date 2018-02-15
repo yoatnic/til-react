@@ -1,10 +1,6 @@
 import React from "react";
 import Wannatag from "../atom/Wannatag";
 
-const style = {
-  width: "100%"
-};
-
 class Wannatags extends React.Component {
   constructor() {
     super();
@@ -38,7 +34,7 @@ class Wannatags extends React.Component {
   createCols() {
     const cols = [];
     for (let i = 0; i < this.state.cols; i++) {
-      cols.push({ height: 0, itemCount: 0 });
+      cols.push({ height: 0, itemCount: 0, realHeight: 0 });
     }
     return cols;
   }
@@ -81,16 +77,30 @@ class Wannatags extends React.Component {
     };
     cols[col].height += height;
     cols[col].itemCount++;
+    // HACK: 50
+    cols[col].realHeight = translate.y + height + 50;
     return translate;
+  }
+
+  maxHeight(cols) {
+    let maxHeihgt = cols[0].realHeight;
+    for (let i = 1; i < cols.length; i++) {
+      if (maxHeihgt < cols[i].realHeight) {
+        maxHeihgt = cols[i].realHeight;
+      }
+    }
+    return maxHeihgt;
   }
 
   render() {
     const cols = this.createCols();
+    let maxHeight = 0;
     const wannatags = this.props.wannatags.map((wannatag, i) => {
       let translate = null;
       if (this.state.wannatagHeights.length === this.props.wannatags.length) {
         const height = this.state.wannatagHeights[i].height;
         translate = this.calculateChildTranslate(cols, height);
+        maxHeight = this.maxHeight(cols);
       }
 
       const props = Object.assign(
@@ -114,6 +124,10 @@ class Wannatags extends React.Component {
       }
       return <Wannatag key={props.wannatagId} {...props} />;
     });
+    const style = {
+      width: "100%",
+      height: `${maxHeight}px`
+    };
     return <div style={style}>{wannatags}</div>;
   }
 }

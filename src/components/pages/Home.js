@@ -1,5 +1,6 @@
 import React from "react";
 import Header from "../molecules/Header";
+import Footer from "../molecules/Footer";
 import WannatagRequestFactory from "../enhancements/WannatagReuests";
 import Wannatags from "../molecules/Wannatags";
 import WannatagPostForm from "../atom/WannatagPostForm";
@@ -27,6 +28,7 @@ class Home extends React.Component {
         <Header {...headerProps} />
         <WrappedWannatag {...wannatagProps} />
         {this.props.isWannaPosting ? <WannatagPostForm {...formProps} /> : null}
+        <Footer />
       </React.Fragment>
     );
   }
