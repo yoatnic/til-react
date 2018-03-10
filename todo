@@ -1,3 +1,24 @@
-- [ ] animation layout
-- [ ] fix console error after post
-- [ ] move stats to redux
+- [ ] Login
+  - [ ] twitter login
+  - [ ] Styling
+- [ ] WannatagList
+  - [ ] Header
+    - [ ] Post
+      - [ ] Validate
+      - [ ] Post Wannatag
+      - [ ] Guard Login
+      - [ ] Styling
+    - [ ] Styling
+  - [ ] Footer
+    - [ ] privacy policy
+    - [ ] Styling
+  - [ ] WannatagList
+    - [ ] Wannatag
+    - [ ] Infinit scroll
+    - [ ] Styling
+- [ ] Logout
+  - [ ] twitter logout
+  - [ ] Styling
+- [ ] Sigin out
+  - [ ] remove twitter Cooperation
+  - [ ] Styling
