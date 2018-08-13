@@ -4,8 +4,12 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
+    "@blueprintjs/core": "^3.2.0",
+    "@blueprintjs/docs-theme": "^3.0.1",
+    "@blueprintjs/icons": "^3.0.0",
     "babel-polyfill": "^6.26.0",
     "intersection-observer": "^0.5.0",
+    "normalize.css": "^8.0.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-intersection-observer": "^3.0.1",
@@ -32,6 +36,7 @@
     "redux-devtools": "^3.4.1",
     "style-loader": "^0.19.1",
     "uglifyjs-webpack-plugin": "^1.2.2",
+    "url-loader": "^1.0.1",
     "webpack": "^4.1.1",
     "webpack-cli": "^2.0.11",
     "webpack-dev-server": "^3.1.1"
