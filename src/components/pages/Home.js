@@ -28,7 +28,7 @@ class Home extends React.Component {
         <Header {...headerProps} />
         <WrappedWannatag {...wannatagProps} />
         {this.props.isWannaPosting ? <WannatagPostForm {...formProps} /> : null}
-        <Footer />
+        {/* <Footer /> */}
       </React.Fragment>
     );
   }

@@ -1,4 +1,5 @@
 import React from "react";
+import { Button, Icon, Colors } from "@blueprintjs/core";
 import { wannatagReducers } from "../../reducers/WannatagReducer";
 
 export default function(WrapedComponent) {
@@ -83,9 +84,24 @@ export default function(WrapedComponent) {
       };
       const showNewItems =
         this.state.wannatagsFeed.length > 0 ? (
-          <button onClick={this.onShowButtonClick}>
-            {this.state.wannatagsFeed.length}件の新着をみる
-          </button>
+          <div style={{ width: "100%", height: "40px" }}>
+            <div
+              style={{
+                width: "100%",
+                height: "100%",
+                textAlign: "center",
+                lineHeight: "40px",
+                display: "inline-block",
+                backgroundColor: Colors.GRAY5
+              }}
+            >
+              <a onClick={this.onShowButtonClick}>
+                <Icon icon="refresh" style={{ marginTop: "12px" }} />
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                {`${this.state.wannatagsFeed.length}件の新着をみる`}
+              </a>
+            </div>
+          </div>
         ) : null;
       return (
         <div>

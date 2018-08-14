@@ -1,5 +1,12 @@
 import React from "react";
-import { Alignment, Navbar, Button } from "@blueprintjs/core";
+import {
+  Alignment,
+  Navbar,
+  Button,
+  Icon,
+  Intent,
+  Colors
+} from "@blueprintjs/core";
 import { Example } from "@blueprintjs/docs-theme";
 import "normalize.css";
 import "@blueprintjs/core/lib/css/blueprint.css";
@@ -14,21 +21,35 @@ const Header = function(props) {
   };
   return (
     <header>
-      <Navbar>
+      <Navbar style={{ color: Colors.WHITE, background: Colors.GREEN2 }}>
         <Navbar.Group align={Alignment.LEFT}>
           <Navbar.Heading>Wanna</Navbar.Heading>
           <Navbar.Divider />
-          <Button className="bp3-minimal" icon="home" text="Home" />
+          <Button
+            style={{ color: Colors.WHITE, background: Colors.GREEN2 }}
+            className="bp3-minimal"
+          >
+            <Icon icon="home" style={{ color: Colors.WHITE }} />
+            <span> Home</span>
+          </Button>
           <Navbar.Divider />
           <Button
+            style={{ color: Colors.WHITE, background: Colors.GREEN2 }}
             className="bp3-minimal"
-            icon="plus"
-            text="Post"
             onClick={openPostForm}
-          />
+          >
+            <Icon icon="plus" style={{ color: Colors.WHITE }} />
+            <span> Post</span>
+          </Button>
         </Navbar.Group>
         <Navbar.Group align={Alignment.RIGHT}>
-          <Button className="bp3-minimal" icon="log-in" text="Login" />
+          <Button
+            style={{ color: Colors.WHITE, background: Colors.GREEN2 }}
+            className="bp3-minimal"
+          >
+            <Icon icon="log-in" style={{ color: Colors.WHITE }} />
+            <span> Login</span>
+          </Button>
         </Navbar.Group>
       </Navbar>
     </header>

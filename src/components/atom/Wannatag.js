@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import Observer from "react-intersection-observer";
+import { Elevation, Card, Button, Icon, Colors } from "@blueprintjs/core";
 import "../../index.css";
 
 const headerStyle = {
@@ -122,4 +123,115 @@ class Wannatag extends React.Component {
   }
 }
 
-export default Wannatag;
+class WannatagB extends React.Component {
+  constructor(props) {
+    super();
+    this.state = {
+      onUpdateLastWannatagDate: props.onUpdateLastWannatagDate,
+      animated: false
+    };
+
+    this.onDelete = this.onDelete.bind(this);
+  }
+
+  componentDidMount() {
+    if (this.props.onUpdateFirstWannatagDate) {
+      this.props.onUpdateFirstWannatagDate(this.props.postDate);
+    }
+    const self = document.querySelector(`.wanantag${this.props.wannatagId}`);
+    const height = self.clientHeight;
+    this.props.heightRef(height);
+  }
+
+  onEnter(inView) {
+    if (!inView) return;
+    this.props.onUpdateLastWannatagDate(this.props.postDate);
+    this.setState({ onUpdateLastWannatagDate: false });
+  }
+
+  async onDelete() {
+    const res = await fetch(`/wannatags/${this.props.wannatagId}`, {
+      method: "DELETE"
+    });
+    // TODO wait for complate transaction
+    if (res.ok) setTimeout(() => this.props.onResetWannatagDate(), 3000);
+  }
+
+  isOwner() {
+    // TODO: tempolary
+    return this.props.isOwner;
+  }
+
+  render() {
+    const animation = !!this.props.translate;
+    const translate = animation
+      ? `translate(${this.props.translate.x}px, ${this.props.translate.y}px)`
+      : "translate(0px, 10000px)";
+    const wannatagStyle = {
+      width: `${this.props.width}px`,
+      wordWrap: "break-word",
+      transform: translate,
+      position: "absolute",
+      opacity: this.state.animated ? 1 : 0
+    };
+
+    const d = new Date(this.props.postDate);
+    const dateStr =
+      `${d.getFullYear()}/${d.getMonth() + 1}/${d.getDate()} ` +
+      `${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}`;
+    let elem = (
+      <div>
+        <h5 style={{ color: Colors.GRAY2 }}>
+          {dateStr}
+          {this.isOwner() ? (
+            <Icon
+              icon="cross"
+              onClick={this.onDelete}
+              style={{ float: "right" }}
+            />
+          ) : null}
+          <div>{this.props.author}</div>
+        </h5>
+        <h3>{this.props.title}</h3>
+        <p>{this.props.body}</p>
+      </div>
+    );
+    if (this.state.onUpdateLastWannatagDate) {
+      elem = (
+        <Observer onChange={inView => this.onEnter(inView)} triggerOnce={true}>
+          {elem}
+        </Observer>
+      );
+    }
+
+    if (!this.state.animated && animation) {
+      setTimeout(() => {
+        const el = ReactDOM.findDOMNode(this);
+        el
+          .animate(
+            [
+              { transform: `${translate} scale(0.5)`, opacity: 0.6 },
+              { transform: `${translate} scale(0.8)`, opacity: 0.8 },
+              { transform: `${translate} scale(1.0)`, opacity: 1 }
+            ],
+            200
+          )
+          .finished.then(() => {
+            this.setState({ animated: true });
+          });
+      }, 50);
+    }
+    return (
+      <Card
+        className={`wanantag${this.props.wannatagId}`}
+        interactive={false}
+        elevation={Elevation.ONE}
+        style={wannatagStyle}
+      >
+        {elem}
+      </Card>
+    );
+  }
+}
+
+export default WannatagB;
