@@ -1,7 +1,15 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import Observer from "react-intersection-observer";
-import { Elevation, Card, Button, Icon, Colors } from "@blueprintjs/core";
+import {
+  Elevation,
+  Card,
+  Button,
+  Icon,
+  Colors,
+  Tooltip,
+  Position
+} from "@blueprintjs/core";
 import "../../index.css";
 
 const headerStyle = {
@@ -182,6 +190,10 @@ class WannatagB extends React.Component {
     let elem = (
       <div>
         <h5 style={{ color: Colors.GRAY2 }}>
+          <Tooltip content={this.props.username} position={Position.TOP}>
+            <Icon iconSize={24} icon="user" />
+          </Tooltip>
+          &nbsp;&nbsp;&nbsp;
           {dateStr}
           {this.isOwner() ? (
             <Icon
@@ -190,7 +202,6 @@ class WannatagB extends React.Component {
               style={{ float: "right" }}
             />
           ) : null}
-          <div>{this.props.author}</div>
         </h5>
         <h3>{this.props.title}</h3>
         <p>{this.props.body}</p>
