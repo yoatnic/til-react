@@ -1,14 +1,25 @@
 import React from "react";
+import { Alignment, Navbar, Button, Colors } from "@blueprintjs/core";
 
 const Footer = function() {
   const style = {
     position: "fixed",
     bottom: 0,
-    width: "100%",
-    height: "40px",
-    backgroundColor: "gray"
+    color: Colors.WHITE,
+    background: Colors.GREEN2
   };
-  return <div style={style}>footer</div>;
+  return (
+    <Navbar style={style}>
+      <Navbar.Group align={Alignment.RIGHT}>
+        <Button
+          style={{ color: Colors.WHITE, background: Colors.GREEN2 }}
+          className="bp3-minimal"
+        >
+          Privacy & Policy
+        </Button>
+      </Navbar.Group>
+    </Navbar>
+  );
 };
 
 export default Footer;

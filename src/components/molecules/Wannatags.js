@@ -78,7 +78,7 @@ class Wannatags extends React.Component {
     cols[col].height += height;
     cols[col].itemCount++;
     // HACK: 50
-    cols[col].realHeight = translate.y + height + 50;
+    cols[col].realHeight = translate.y + height + 80;
     return translate;
   }
 
