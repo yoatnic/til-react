@@ -8,10 +8,6 @@ import {
   Colors
 } from "@blueprintjs/core";
 import { Example } from "@blueprintjs/docs-theme";
-import "normalize.css";
-import "@blueprintjs/core/lib/css/blueprint.css";
-import "@blueprintjs/icons/lib/css/blueprint-icons.css";
-import "@blueprintjs/docs-theme/lib/css/docs-theme.css";
 import Login from "../atom/Login";
 import Logout from "../atom/Logout";
 
