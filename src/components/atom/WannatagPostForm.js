@@ -1,4 +1,5 @@
 import React from "react";
+import { post } from "../../api/wannatagsAPI";
 
 const modalStyle = {
   position: "fixed",
@@ -32,21 +33,15 @@ class WannatagPostForm extends React.Component {
     this.setState({ body: e.target.value });
   }
 
-  onSubmit() {
-    const method = "POST";
-    const body = JSON.stringify(this.state);
-    const headers = {
-      Accept: "application/json",
-      "Content-Type": "application/json"
-    };
-    fetch("/wannatags", {
-      method,
-      headers,
-      body
-    }).then(() => {
-      this.props.onToggleWannaPosting(false);
-      this.props.onResetWannatagDate();
-    });
+  async onSubmit() {
+    try {
+      await post(this.state);
+    } catch (e) {
+      console.log(e);
+      return;
+    }
+    this.props.onToggleWannaPosting(false);
+    this.props.onResetWannatagDate();
   }
 
   render() {

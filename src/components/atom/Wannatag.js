@@ -10,7 +10,7 @@ import {
   Tooltip,
   Position
 } from "@blueprintjs/core";
-import "../../index.css";
+import { remove } from "../../api/wannatagsAPI"
 
 const headerStyle = {
   backgroundColor: "#EFEFEF",
@@ -47,11 +47,9 @@ class Wannatag extends React.Component {
   }
 
   async onDelete() {
-    const res = await fetch(`/wannatags/${this.props.wannatagId}`, {
-      method: "DELETE"
-    });
+    const result = await remove(this.props.wannatagId)
     // TODO wait for complate transaction
-    if (res.ok) setTimeout(() => this.props.onResetWannatagDate(), 3000);
+    if (result) setTimeout(() => this.props.onResetWannatagDate(), 3000);
   }
 
   isOwner() {
@@ -158,11 +156,9 @@ class WannatagB extends React.Component {
   }
 
   async onDelete() {
-    const res = await fetch(`/wannatags/${this.props.wannatagId}`, {
-      method: "DELETE"
-    });
+    const result = await remove(this.props.wannatagId)
     // TODO wait for complate transaction
-    if (res.ok) setTimeout(() => this.props.onResetWannatagDate(), 3000);
+    if (result) setTimeout(() => this.props.onResetWannatagDate(), 3000);
   }
 
   isOwner() {
