@@ -1,5 +1,5 @@
 import React from "react";
-import { post } from "../../api/wannatagsAPI";
+import WannatagsAPI from "../../api/wannatagsAPI";
 
 const modalStyle = {
   position: "fixed",
@@ -35,7 +35,7 @@ class WannatagPostForm extends React.Component {
 
   async onSubmit() {
     try {
-      await post(this.state);
+      await WannatagsAPI.post(this.state);
     } catch (e) {
       console.log(e);
       return;

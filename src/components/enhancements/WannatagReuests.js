@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, Icon, Colors } from "@blueprintjs/core";
 import { wannatagReducers } from "../../reducers/WannatagReducer";
-import { get } from "../../api/wannatagsAPI"
+import WannatagsAPI from "../../api/wannatagsAPI";
 
 export default function(WrapedComponent) {
   return class WannatagRequestHOC extends React.Component {
@@ -17,17 +17,17 @@ export default function(WrapedComponent) {
 
     pollingFeed() {
       setInterval(async () => {
-        const wannatagsFeed = await get({
+        const wannatagsFeed = await WannatagsAPI.get({
           postDate: this.props.firstWannatagDate,
           compare: "newer"
-        })
+        });
         if (wannatagsFeed.length > 0) this.setState({ wannatagsFeed });
       }, 5000);
     }
 
     async updateWannatags(lastWannatagDate) {
       try {
-        const wannatags = await get({
+        const wannatags = await WannatagsAPI.get({
           postDate: lastWannatagDate
         });
 

@@ -10,7 +10,7 @@ import {
   Tooltip,
   Position
 } from "@blueprintjs/core";
-import { remove } from "../../api/wannatagsAPI"
+import WannatagsAPI from "../../api/wannatagsAPI";
 
 const headerStyle = {
   backgroundColor: "#EFEFEF",
@@ -47,7 +47,7 @@ class Wannatag extends React.Component {
   }
 
   async onDelete() {
-    const result = await remove(this.props.wannatagId)
+    const result = await WannatagsAPI.remove(this.props.wannatagId);
     // TODO wait for complate transaction
     if (result) setTimeout(() => this.props.onResetWannatagDate(), 3000);
   }
@@ -103,18 +103,16 @@ class Wannatag extends React.Component {
     if (!this.state.animated && animation) {
       setTimeout(() => {
         const el = ReactDOM.findDOMNode(this);
-        el
-          .animate(
-            [
-              { transform: `${translate} scale(0.5)`, opacity: 0.6 },
-              { transform: `${translate} scale(0.8)`, opacity: 0.8 },
-              { transform: `${translate} scale(1.0)`, opacity: 1 }
-            ],
-            200
-          )
-          .finished.then(() => {
-            this.setState({ animated: true });
-          });
+        el.animate(
+          [
+            { transform: `${translate} scale(0.5)`, opacity: 0.6 },
+            { transform: `${translate} scale(0.8)`, opacity: 0.8 },
+            { transform: `${translate} scale(1.0)`, opacity: 1 }
+          ],
+          200
+        ).finished.then(() => {
+          this.setState({ animated: true });
+        });
       }, 50);
     }
     return (
@@ -156,7 +154,7 @@ class WannatagB extends React.Component {
   }
 
   async onDelete() {
-    const result = await remove(this.props.wannatagId)
+    const result = await remove(this.props.wannatagId);
     // TODO wait for complate transaction
     if (result) setTimeout(() => this.props.onResetWannatagDate(), 3000);
   }
@@ -214,18 +212,16 @@ class WannatagB extends React.Component {
     if (!this.state.animated && animation) {
       setTimeout(() => {
         const el = ReactDOM.findDOMNode(this);
-        el
-          .animate(
-            [
-              { transform: `${translate} scale(0.5)`, opacity: 0.6 },
-              { transform: `${translate} scale(0.8)`, opacity: 0.8 },
-              { transform: `${translate} scale(1.0)`, opacity: 1 }
-            ],
-            200
-          )
-          .finished.then(() => {
-            this.setState({ animated: true });
-          });
+        el.animate(
+          [
+            { transform: `${translate} scale(0.5)`, opacity: 0.6 },
+            { transform: `${translate} scale(0.8)`, opacity: 0.8 },
+            { transform: `${translate} scale(1.0)`, opacity: 1 }
+          ],
+          200
+        ).finished.then(() => {
+          this.setState({ animated: true });
+        });
       }, 50);
     }
     return (
