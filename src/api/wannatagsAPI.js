@@ -2,7 +2,7 @@
 
 export default class WannatagsAPI {
   static async get(params: {
-    postDate: number,
+    postDate?: number,
     limit?: number,
     compare?: "newer" | "older"
   }) {
