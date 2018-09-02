@@ -1,5 +1,5 @@
-import React from "react";
-import ReactDOM from "react-dom";
+import * as React from "react";
+import * as ReactDOM from "react-dom";
 import Observer from "react-intersection-observer";
 import {
   Elevation,
@@ -22,11 +22,34 @@ const bodyStyle = {
   padding: "10px"
 };
 
-class Wannatag extends React.Component {
-  constructor(props) {
-    super();
+interface Props {
+  onUpdateFirstWannatagDate: Function;
+  onUpdateLastWannatagDate?: Function;
+  onResetWannatagDate: Function;
+  isOwner: boolean;
+  heightRef: Function;
+  wannatagId: any;
+  postDate: number;
+  username: string;
+  title: string;
+  body: string;
+  translate: {
+    x: number;
+    y: number;
+  };
+  width: number;
+}
+
+interface State {
+  animated: boolean;
+  onUpdateLastWannatagDate: boolean;
+}
+
+class Wannatag extends React.Component<Props, State> {
+  constructor(props: Props) {
+    super(props);
     this.state = {
-      onUpdateLastWannatagDate: props.onUpdateLastWannatagDate,
+      onUpdateLastWannatagDate: !!props.onUpdateLastWannatagDate,
       animated: false
     };
 
@@ -42,14 +65,14 @@ class Wannatag extends React.Component {
     this.props.heightRef(height);
   }
 
-  onEnter(inView) {
+  onEnter(inView: boolean) {
     if (!inView) return;
     this.props.onUpdateLastWannatagDate(this.props.postDate);
     this.setState({ onUpdateLastWannatagDate: false });
   }
 
   async onDelete() {
-    const result = await remove(this.props.wannatagId);
+    const result = await WannatagsAPI.remove(this.props.wannatagId);
     // TODO wait for complate transaction
     if (result) setTimeout(() => this.props.onResetWannatagDate(), 3000);
   }
@@ -96,9 +119,10 @@ class Wannatag extends React.Component {
         <p>{this.props.body}</p>
       </div>
     );
+    const onChangeView = (inView: boolean) => this.onEnter(inView);
     if (this.state.onUpdateLastWannatagDate) {
       elem = (
-        <Observer onChange={inView => this.onEnter(inView)} triggerOnce={true}>
+        <Observer onChange={onChangeView} triggerOnce={true}>
           {elem}
         </Observer>
       );
@@ -106,7 +130,7 @@ class Wannatag extends React.Component {
 
     if (!this.state.animated && animation) {
       setTimeout(() => {
-        const el = ReactDOM.findDOMNode(this);
+        const el: any = ReactDOM.findDOMNode(this);
         el.animate(
           [
             { transform: `${translate} scale(0.5)`, opacity: 0.6 },

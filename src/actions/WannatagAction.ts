@@ -2,11 +2,11 @@ export const UPDATE_LAST_WANNATAG_DATE = "UPDATE_LAST_WANNATAG_DATE";
 export const UPDATE_FIRST_WANNATAG_DATE = "UPDATE_FIRST_WANNATAG_DATE";
 export const RESEST_WANNATAG_DATE = "RESEST_WANNATAG_DATE";
 
-export function updateLastWannatagDate(lastWannatagDate) {
+export function updateLastWannatagDate(lastWannatagDate: number) {
   return { type: UPDATE_LAST_WANNATAG_DATE, lastWannatagDate };
 }
 
-export function updateFirstWannatagDate(firstWannatagDate) {
+export function updateFirstWannatagDate(firstWannatagDate: number) {
   return { type: UPDATE_FIRST_WANNATAG_DATE, firstWannatagDate };
 }
 

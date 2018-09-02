@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import Home from "./components/pages/Home";
 import Sandbox from "./components/pages/Sandbox";
 import { BrowserRouter, Route } from "react-router-dom";

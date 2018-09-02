@@ -32,5 +32,8 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-const AppContainer = connect(mapStateToProps, mapDispatchToProps)(AppRouter);
+const AppContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(AppRouter);
 export default AppContainer;

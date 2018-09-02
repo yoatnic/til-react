@@ -1,10 +1,8 @@
-// @flow
-
 export default class WannatagsAPI {
   static async get(params: {
-    postDate?: number,
-    limit?: number,
-    compare?: "newer" | "older"
+    postDate?: number;
+    limit?: number;
+    compare?: "newer" | "older";
   }) {
     const queryParams = [
       params.postDate > 0 ? `postDate=${params.postDate}` : "",
@@ -17,7 +15,7 @@ export default class WannatagsAPI {
     return res.json();
   }
 
-  static async post(data) {
+  static async post(data: any) {
     const method = "POST";
     const body = JSON.stringify(data);
     const headers = {
@@ -31,8 +29,8 @@ export default class WannatagsAPI {
     });
   }
 
-  static async remove(wannatagId) {
-    const res = fetch(`/wannatags/${wannatagId}`, {
+  static async remove(wannatagId: any) {
+    const res: any = fetch(`/wannatags/${wannatagId}`, {
       method: "DELETE"
     });
     return res.ok;
