@@ -20,7 +20,8 @@
   },
   "scripts": {
     "start": "webpack-dev-server --mode development --hot",
-    "build": "webpack --mode production"
+    "build": "webpack --mode production",
+    "type-check": "tsc src/index.tsx --noEmit"
   },
   "devDependencies": {
     "@types/enzyme-adapter-react-16": "^1.0.3",
