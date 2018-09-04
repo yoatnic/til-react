@@ -1,9 +1,22 @@
-import React from "react";
+import * as React from "react";
 import Wannatag from "../atom/Wannatag";
 
-class Wannatags extends React.Component {
-  constructor() {
-    super();
+interface Props {
+  wannatags: Array<any>;
+  onUpdateFirstWannatagDate: Function;
+  onUpdateLastWannatagDate: Function;
+  onResetWannatagDate: Function;
+}
+
+interface State {
+  wannatagHeights: Array<any>;
+  cols: number;
+  childWidth: number;
+}
+
+class Wannatags extends React.Component<Props, State> {
+  constructor(props: Props) {
+    super(props);
     this.state = {
       wannatagHeights: [],
       cols: 0,
@@ -21,7 +34,7 @@ class Wannatags extends React.Component {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps(nextProps: Props) {
     if (nextProps.wannatags.length === 0) {
       this.setState({ wannatagHeights: [] });
     }
@@ -39,7 +52,7 @@ class Wannatags extends React.Component {
     return cols;
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
+  shouldComponentUpdate(nextProps: Props, nextState: State) {
     if (
       nextState.wannatagHeights.length > 0 &&
       nextState.wannatagHeights.length < this.state.wannatagHeights.length
@@ -49,15 +62,17 @@ class Wannatags extends React.Component {
     return true;
   }
 
-  pushHeight(key, height) {
-    this.setState(prevState => {
+  pushHeight(key: number, height: number) {
+    this.setState((prevState: State) => {
       const wannatagHeights = [...prevState.wannatagHeights, { height, key }];
-      wannatagHeights.sort((item1, item2) => item2.key - item1.key);
+      wannatagHeights.sort(
+        (item1: any, item2: any): number => item2.key - item1.key
+      );
       return Object.assign({}, prevState, { wannatagHeights });
     });
   }
 
-  minIndex(cols) {
+  minIndex(cols: Array<{ height: number }>) {
     let dst = 0;
     for (let i = 1, minHeihgt = cols[0].height; i < cols.length; i++) {
       if (minHeihgt > cols[i].height) {
@@ -68,8 +83,11 @@ class Wannatags extends React.Component {
     return dst;
   }
 
-  calculateChildTranslate(cols, height) {
-    const col = this.minIndex(cols, height);
+  calculateChildTranslate(
+    cols: Array<{ height: number; itemCount: number; realHeight: number }>,
+    height: number
+  ) {
+    const col = this.minIndex(cols);
     const mergin = 20;
     const translate = {
       x: this.state.childWidth * col + mergin * col + 10,
@@ -82,7 +100,9 @@ class Wannatags extends React.Component {
     return translate;
   }
 
-  maxHeight(cols) {
+  maxHeight(
+    cols: Array<{ height: number; itemCount: number; realHeight: number }>
+  ) {
     let maxHeihgt = cols[0].realHeight;
     for (let i = 1; i < cols.length; i++) {
       if (maxHeihgt < cols[i].realHeight) {

@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import { Alignment, Navbar, Button, Colors } from "@blueprintjs/core";
 
 const Footer = function() {
