@@ -62,13 +62,16 @@ class Wannatags extends React.Component<Props, State> {
     return true;
   }
 
-  pushHeight(key: number, height: number) {
+  pushHeight(key: number, height: number): any {
     this.setState((prevState: State) => {
       const wannatagHeights = [...prevState.wannatagHeights, { height, key }];
       wannatagHeights.sort(
         (item1: any, item2: any): number => item2.key - item1.key
       );
-      return Object.assign({}, prevState, { wannatagHeights });
+      return {
+        ...prevState,
+        wannatagHeights
+      };
     });
   }
 
@@ -123,24 +126,18 @@ class Wannatags extends React.Component<Props, State> {
         maxHeight = this.maxHeight(cols);
       }
 
-      const props = Object.assign(
-        {
-          onResetWannatagDate: this.props.onResetWannatagDate,
-          heightRef: this.pushHeight.bind(this, wannatag.postDate),
-          translate: translate,
-          width: this.state.childWidth
-        },
+      const props: any = {
+        onResetWannatagDate: this.props.onResetWannatagDate,
+        heightRef: this.pushHeight.bind(this, wannatag.postDate),
+        translate: translate,
+        width: this.state.childWidth,
         wannatag
-      );
+      };
       if (i === 0) {
-        Object.assign(props, {
-          onUpdateFirstWannatagDate: this.props.onUpdateFirstWannatagDate
-        });
+        props.onUpdateFirstWannatagDate = this.props.onUpdateFirstWannatagDate;
       }
       if (i === this.props.wannatags.length - 1) {
-        Object.assign(props, {
-          onUpdateLastWannatagDate: this.props.onUpdateLastWannatagDate
-        });
+        props.onUpdateLastWannatagDate = this.props.onUpdateLastWannatagDate;
       }
       return <Wannatag key={props.wannatagId} {...props} />;
     });
