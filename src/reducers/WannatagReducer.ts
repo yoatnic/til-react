@@ -9,7 +9,7 @@ const initinalState = {
   firstWannatagDate: 0
 };
 
-export function wannatagReducers(state = initinalState, action) {
+export function wannatagReducers(state = initinalState, action: any) {
   switch (action.type) {
     case UPDATE_LAST_WANNATAG_DATE:
       return {
