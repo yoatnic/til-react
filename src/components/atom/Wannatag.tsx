@@ -93,7 +93,7 @@ class Wannatag extends React.Component<Props, State> {
       transform: translate,
       position: "absolute",
       opacity: this.state.animated ? 1 : 0
-    };
+    } as React.CSSProperties;
 
     const d = new Date(this.props.postDate);
     const dateStr =

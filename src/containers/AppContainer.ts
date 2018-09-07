@@ -7,7 +7,15 @@ import {
 import { updateWannaPosting } from "../actions/PostAction";
 import { connect } from "react-redux";
 
-function mapStateToProps(state) {
+function mapStateToProps(state: {
+  wannatagReducers: {
+    lastWannatagDate: number;
+    firstWannatagDate: number;
+  };
+  postReducers: {
+    isWannaPosting: boolean;
+  };
+}) {
   return {
     lastWannatagDate: state.wannatagReducers.lastWannatagDate,
     firstWannatagDate: state.wannatagReducers.firstWannatagDate,
@@ -15,18 +23,18 @@ function mapStateToProps(state) {
   };
 }
 
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch: Function) {
   return {
-    onUpdateLastWannatagDate(value) {
+    onUpdateLastWannatagDate(value: number) {
       dispatch(updateLastWannatagDate(value));
     },
-    onUpdateFirstWannatagDate(value) {
+    onUpdateFirstWannatagDate(value: number) {
       dispatch(updateFirstWannatagDate(value));
     },
     onResetWannatagDate() {
       dispatch(resetWannatagDate());
     },
-    onToggleWannaPosting(value) {
+    onToggleWannaPosting(value: boolean) {
       dispatch(updateWannaPosting(value));
     }
   };

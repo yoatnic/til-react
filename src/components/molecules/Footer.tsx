@@ -7,7 +7,7 @@ const Footer = function() {
     bottom: 0,
     color: Colors.WHITE,
     background: Colors.GREEN2
-  };
+  } as React.CSSProperties;
   return (
     <Navbar style={style}>
       <Navbar.Group align={Alignment.RIGHT}>

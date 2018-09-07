@@ -8,7 +8,7 @@ const modalStyle = {
   backgroundColor: "rgba(0,0,0,0.75)",
   top: 0,
   left: 0
-};
+} as React.CSSProperties;
 
 interface Props {
   onToggleWannaPosting: Function;
