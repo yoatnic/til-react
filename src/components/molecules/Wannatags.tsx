@@ -131,7 +131,7 @@ class Wannatags extends React.Component<Props, State> {
         heightRef: this.pushHeight.bind(this, wannatag.postDate),
         translate: translate,
         width: this.state.childWidth,
-        wannatag
+        ...wannatag
       };
       if (i === 0) {
         props.onUpdateFirstWannatagDate = this.props.onUpdateFirstWannatagDate;

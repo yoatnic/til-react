@@ -11,10 +11,6 @@ class AppRouter extends React.Component {
       <BrowserRouter>
         <div>
           <Route exact={true} path="/" render={renderHome} />
-          {/* <Route path="/signup" component={Login} /> */}
-          {/* <Route path="/login" component={} />
-        <Route path="/logout" component={} />
-        <Route path="/leave" component={} /> */}
         </div>
       </BrowserRouter>
     );
