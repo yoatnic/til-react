@@ -5,10 +5,15 @@ const path = require("path");
 const webpack = require("webpack");
 
 module.exports = {
+  entry: "./src/index.tsx",
   output: {
     filename: "bundle.js",
     path: path.resolve(__dirname, "public"),
     publicPath: "/"
+  },
+  resolve: {
+    // Add '.ts' and '.tsx' as resolvable extensions.
+    extensions: [".ts", ".tsx", ".js", ".json"]
   },
   devServer: {
     contentBase: "public/",
@@ -24,6 +29,15 @@ module.exports = {
   },
   module: {
     rules: [
+      {
+        test: /\.tsx?$/,
+        loader: "awesome-typescript-loader"
+      },
+      {
+        enforce: "pre",
+        test: /\.js$/,
+        loader: "source-map-loader"
+      },
       {
         test: /\.js$/,
         use: "babel-loader",

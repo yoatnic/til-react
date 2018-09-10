@@ -1,12 +1,26 @@
-import React from "react";
+import * as React from "react";
 import { Button, Icon, Colors } from "@blueprintjs/core";
 import { wannatagReducers } from "../../reducers/WannatagReducer";
 import WannatagsAPI from "../../api/wannatagsAPI";
 
-export default function(WrapedComponent) {
-  return class WannatagRequestHOC extends React.Component {
-    constructor() {
-      super();
+interface Props {
+  firstWannatagDate: number;
+  lastWannatagDate: number;
+  onUpdateLastWannatagDate: Function;
+  onUpdateFirstWannatagDate: Function;
+  onResetWannatagDate: Function;
+}
+
+interface State {
+  wannatags: Array<any>;
+  wannatagsFeed: Array<any>;
+}
+export default function(WrapedComponent: any) {
+  return class WannatagRequestHOC extends React.Component<Props, State> {
+    wannatagNewPosts: Array<any>;
+
+    constructor(props: Props) {
+      super(props);
       this.state = {
         wannatags: [],
         wannatagsFeed: []
@@ -25,14 +39,14 @@ export default function(WrapedComponent) {
       }, 5000);
     }
 
-    async updateWannatags(lastWannatagDate) {
+    async updateWannatags(lastWannatagDate: number) {
       try {
         const wannatags = await WannatagsAPI.get({
           postDate: lastWannatagDate
         });
 
         if (wannatags.length > 0) {
-          this.setState(prevState => {
+          this.setState((prevState: { wannatags: Array<any> }) => {
             return {
               wannatags: [...prevState.wannatags, ...wannatags]
             };
@@ -48,7 +62,10 @@ export default function(WrapedComponent) {
       this.pollingFeed();
     }
 
-    componentWillReceiveProps(nextProps) {
+    componentWillReceiveProps(nextProps: {
+      firstWannatagDate: number;
+      lastWannatagDate: number;
+    }) {
       if (
         nextProps.firstWannatagDate === 0 &&
         nextProps.lastWannatagDate === 0
@@ -63,12 +80,14 @@ export default function(WrapedComponent) {
     }
 
     onShowButtonClick() {
-      this.setState(prevState => {
-        return {
-          wannatags: prevState.wannatagsFeed.concat(prevState.wannatags),
-          wannatagsFeed: []
-        };
-      });
+      this.setState(
+        (prevState: { wannatagsFeed: Array<any>; wannatags: Array<any> }) => {
+          return {
+            wannatags: prevState.wannatagsFeed.concat(prevState.wannatags),
+            wannatagsFeed: []
+          };
+        }
+      );
     }
 
     render() {

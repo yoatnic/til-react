@@ -9,18 +9,20 @@ const initinalState = {
   firstWannatagDate: 0
 };
 
-export function wannatagReducers(state = initinalState, action) {
+export function wannatagReducers(state = initinalState, action: any) {
   switch (action.type) {
     case UPDATE_LAST_WANNATAG_DATE:
-      return Object.assign({}, state, {
+      return {
+        ...state,
         lastWannatagDate: action.lastWannatagDate
-      });
+      };
     case UPDATE_FIRST_WANNATAG_DATE:
-      return Object.assign({}, state, {
+      return {
+        ...state,
         firstWannatagDate: action.firstWannatagDate
-      });
+      };
     case RESEST_WANNATAG_DATE:
-      return Object.assign({}, state, initinalState);
+      return { ...state, initinalState };
     default:
       return state;
   }

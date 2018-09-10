@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import {
   Alignment,
   Navbar,
@@ -11,7 +11,7 @@ import { Example } from "@blueprintjs/docs-theme";
 import Login from "../atom/Login";
 import Logout from "../atom/Logout";
 
-const Header = function(props) {
+const Header = function(props: { onToggleWannaPosting: Function }) {
   const openPostForm = function() {
     props.onToggleWannaPosting(true);
   };

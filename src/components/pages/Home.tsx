@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import Header from "../molecules/Header";
 import Footer from "../molecules/Footer";
 import WannatagRequestFactory from "../enhancements/WannatagReuests";
@@ -7,7 +7,17 @@ import WannatagPostForm from "../atom/WannatagPostForm";
 
 const WrappedWannatag = WannatagRequestFactory(Wannatags);
 
-class Home extends React.Component {
+interface Props {
+  isWannaPosting: boolean;
+  lastWannatagDate: number;
+  firstWannatagDate: number;
+  onUpdateLastWannatagDate: Function;
+  onUpdateFirstWannatagDate: Function;
+  onResetWannatagDate: Function;
+  onToggleWannaPosting: Function;
+}
+
+class Home extends React.Component<Props> {
   render() {
     const wannatagProps = {
       lastWannatagDate: this.props.lastWannatagDate,

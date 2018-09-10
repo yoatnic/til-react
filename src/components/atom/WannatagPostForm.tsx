@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import WannatagsAPI from "../../api/wannatagsAPI";
 
 const modalStyle = {
@@ -8,11 +8,22 @@ const modalStyle = {
   backgroundColor: "rgba(0,0,0,0.75)",
   top: 0,
   left: 0
-};
+} as React.CSSProperties;
 
-class WannatagPostForm extends React.Component {
-  constructor() {
-    super();
+interface Props {
+  onToggleWannaPosting: Function;
+  onResetWannatagDate: Function;
+}
+
+interface State {
+  title: String;
+  body: String;
+  userId: any;
+}
+
+class WannatagPostForm extends React.Component<Props, State> {
+  constructor(props: Props) {
+    super(props);
 
     this.state = {
       title: "",
@@ -25,11 +36,11 @@ class WannatagPostForm extends React.Component {
     this.onSubmit = this.onSubmit.bind(this);
   }
 
-  onChangeTitle(e) {
+  onChangeTitle(e: { target: { value: string } }) {
     this.setState({ title: e.target.value });
   }
 
-  onChangeBody(e) {
+  onChangeBody(e: { target: { value: string } }) {
     this.setState({ body: e.target.value });
   }
 
